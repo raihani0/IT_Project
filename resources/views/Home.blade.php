@@ -130,7 +130,7 @@
         <h1>SIM PENDUDUK</h1>
         <a href="#" class="active">Dashboard</a>
         <a href="#">Penduduk</a>
-        <a href="#">Desa</a>
+        <a href="/Desa">Desa</a>
         <a href="#">Bantuan</a>
         <a href="#">Data Pengguna</a>
         <a href="#">Dokumentasi</a>
