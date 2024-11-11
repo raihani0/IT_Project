@@ -131,7 +131,7 @@
         <a href="#" class="active">Dashboard</a>
         <a href="#">Penduduk</a>
         <a href="#">Desa</a>
-        <a href="#">Bantuan</a>
+        <a href="/bantuans">Bantuan</a>
         <a href="#">Data Pengguna</a>
         <a href="#">Dokumentasi</a>
         <a href="#">Histori</a>
