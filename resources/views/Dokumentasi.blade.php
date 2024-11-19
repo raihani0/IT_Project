@@ -129,54 +129,20 @@
         </div>
     </div>
     <div class="sidebar">
-        <a href="#" class="active">Dashboard</a>
+        <a href="/Home" >Dashboard</a>
         <a href="#">Penduduk</a>
         <a href="/Desa">Desa</a>
-
         <a href="/bantuans">Bantuan</a>
-        <a href="/Dokumentasi">Dokumentasi</a>
-
-        <a href="#">Bantuan</a>
-        <a href="#">Data Pengguna</a>
-        <a href="#">Dokumentasi</a>
-
+        <a href="/Dokumentasi" class="active">Dokumentasi</a>
         <a href="#">Histori</a>
         <a href="#">LogOut</a>
     </div>
+
     <div class="content">
         <div class="breadcrumb">
-            <a href="#">Dashboard</a>
+            <a href="#">Dokumentasi</a>
         </div>
         <div class="main-title">Sistem Informasi Pendataan Masyarakat Miskin di Kecamatan Batu Ampar</div>
-        <div class="cards">
-            <div class="card blue">
-                <i class="fas fa-map-marker-alt"></i>
-                <div class="info">
-                    <div class="title">Desa</div>
-                    <div class="number">14</div>
-                </div>
-            </div>
-            <div class="card green">
-                <i class="fas fa-users"></i>
-                <div class="info">
-                    <div class="title">Warga</div>
-                    <div class="number">200</div>
-                </div>
-            </div>
-            <div class="card blue">
-                <i class="fas fa-hand-holding-usd"></i>
-                <div class="info">
-                    <div class="title">Bantuan</div>
-                    <div class="number">7</div>
-                </div>
-            </div>
-            <div class="card green">
-                <i class="fas fa-clipboard-check"></i>
-                <div class="info">
-                    <div class="title">Status Penerima</div>
-                    <div class="number">55</div>
-                </div>
-            </div>
         </div>
     </div>
 </body>
