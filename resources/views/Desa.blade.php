@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show Bantuan</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>SIM PENDUDUK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Prevent horizontal scrolling */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -20,12 +20,12 @@
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
             z-index: 1000;
         }
 
@@ -38,6 +38,7 @@
         .header .user-info {
             display: flex;
             align-items: center;
+            padding-right: 20px;
         }
 
         .header .user-info i {
@@ -50,15 +51,14 @@
         }
 
         .sidebar {
+            width: 200px;
             background-color: #333;
             color: white;
-            width: 200px; /* Lebar sidebar */
             position: fixed;
-            top: 50px;
-            left: 0;
+            top: 50px; /* Beri jarak dari header */
             bottom: 0;
-            padding-top: 20px;
-            overflow-y: auto;
+            padding-top: 20px; /* Jarak di dalam sidebar */
+            font-size: 16px;
         }
 
         .sidebar a {
@@ -78,11 +78,11 @@
             padding-left: 16px;
         }
 
-        .container {
-            margin-left: 220px; /* Menyesuaikan jarak sidebar dengan konten */
-            padding-top: 50px; /* Menyesuaikan jarak konten dengan header */
+        .main-content {
+            margin-left: 220px;
+            padding-top: 70px; /* Adjusted for header height */
             padding-bottom: 50px;
-            max-width: calc(100% - 240px); /* Pastikan konten tetap di dalam layar */
+            max-width: calc(100% - 240px);
         }
 
         .breadcrumb-custom {
@@ -102,16 +102,26 @@
             text-decoration: underline;
         }
 
-        .page-title {
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
+        .button-item {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button-item:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
-<body>
 
+<body>
     <!-- Header -->
     <div class="header">
         <h1>SIM PENDUDUK</h1>
@@ -125,45 +135,38 @@
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
         <a href="#">Penduduk</a>
-        <a href="/Desa">Desa</a>
-        <a href="/bantuans" class="active">Bantuan</a>
+        <a href="/Desa" class="active">Desa</a>
+        <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="#">Histori</a>
         <a href="#">LogOut</a>
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5 mb-5">
-        <!-- Custom Breadcrumb -->
+    <div class="main-content">
+        <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="#">Desa</a> 
         </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <img src="{{ asset('/storage/bantuans/'.$bantuan->image) }}" class="rounded" style="width: 100%">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <h3>{{ $bantuan->title }}</h3>
-                        <hr/>
-                        <p>{{ "Rp " . number_format($bantuan->price, 2, ',', '.') }}</p>
-                        <code>
-                            <p>{!! $bantuan->description !!}</p>
-                        </code>
-                        <hr/>
-                        <p>Stock : {{ $bantuan->stock }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Desa List Buttons -->
+        <a href="/Ambawang"><button class="button-item">Ambawang</button></a>
+        <a href="/BatuAmpar"><button class="button-item">Batu Ampar</button></a>
+        <a href="/Bluru"><button class="button-item">Bluru</button></a>
+        <a href="/DamarLima"><button class="button-item">Damar Lima</button></a>
+        <a href="/Damit"><button class="button-item">Damit</button></a>
+        <a href="/DamitHulu"><button class="button-item">Damit Hulu</button></a>
+        <a href="/DurianBungkuk"><button class="button-item">Durian Bungkuk</button></a>
+        <a href="/GunungMas"><button class="button-item">Gunung Mas</button></a>
+        <a href="/GunungMelati"><button class="button-item">Gunung Melati</button></a>
+        <a href="/Jilatan"><button class="button-item">Jilatan</button></a>
+        <a href="/JilatanAlur"><button class="button-item">Jilatan Alur</button></a>
+        <a href="/PantaiLinuh"><button class="button-item">Pantai Linuh</button></a>
+        <a href="/TajauMulya"><button class="button-item">Tajau Mulya</button></a>
+        <a href="/TajauPecah"><button class="button-item">Tajau Pecah</button></a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
