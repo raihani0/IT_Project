@@ -6,7 +6,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #e5dfdc;
+            background-color: #D3D3D3;
         }
         .header {
             background-color: #4CAF50;
@@ -68,7 +68,7 @@
             font-size: 14px;
         }
         .breadcrumb a {
-            color: #007bff;
+            color: #0d6efd;
             text-decoration: none;
         }
         .breadcrumb a:hover {
@@ -125,7 +125,7 @@
         <div class="title">SIM PENDUDUK</div>
         <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>User</span>
+            <span>Admin</span>
         </div>
     </div>
     <div class="sidebar">
