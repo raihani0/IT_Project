@@ -21,6 +21,7 @@ Route::get('/Desa', function () {
 
 Route::get('/Dokumentasi', function () {
     return view('Dokumentasi');
+});
 
 Route::get('/Home', function () {
     return view('Home');
