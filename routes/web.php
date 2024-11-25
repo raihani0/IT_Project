@@ -9,7 +9,7 @@ Route::get('/', function () {
 
 Route::get('/Home', function () {
     return view('Home');
-});
+})->middleware('auth');
 
 // Route untuk Bantuan
 Route::resource('/bantuans', \App\Http\Controllers\BantuanController::class);
