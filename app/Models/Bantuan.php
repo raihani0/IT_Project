@@ -15,10 +15,20 @@ class Bantuan extends Model
      * @var array
      */
     protected $fillable = [
-        'image',
         'title',
         'description',
-        'price',
-        'stock',
+        'status',
     ];
+
+    /**
+     * statusLabel
+     * 
+     * Helper untuk mendapatkan label status.
+     *
+     * @return string
+     */
+    public function getStatusLabelAttribute(): string
+    {
+        return $this->status ? 'Aktif' : 'Tidak Aktif';
+    }
 }
