@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show Bantuan</title>
+    <title>Detail Bantuan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Prevent horizontal scrolling */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,6 +15,7 @@
             overflow-x: hidden;
         }
 
+        /* Header Styling */
         .header {
             background-color: #4CAF50;
             color: white;
@@ -35,24 +35,28 @@
             font-weight: bold;
         }
 
-        .header .user-info {
+        .user-info {
             display: flex;
             align-items: center;
+            gap: 10px;
         }
 
-        .header .user-info i {
-            margin-right: 5px;
-        }
-
-        .header .user-info span {
-            font-size: 18px;
+        .user-info i {
+            font-size: 16px;
             color: white;
         }
 
+        .user-info span {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Sidebar Styling */
         .sidebar {
             background-color: #333;
             color: white;
-            width: 200px; /* Lebar sidebar */
+            width: 200px;
             position: fixed;
             top: 50px;
             left: 0;
@@ -68,21 +72,21 @@
             display: block;
         }
 
-        .sidebar a:hover {
+        .sidebar a:hover, .sidebar a.active {
             background-color: #575757;
         }
 
         .sidebar a.active {
-            background-color: #575757;
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
         }
 
+        /* Main Content Styling */
         .container {
-            margin-left: 220px; /* Menyesuaikan jarak sidebar dengan konten */
-            padding-top: 50px; /* Menyesuaikan jarak konten dengan header */
+            margin-left: 220px;
+            padding-top: 70px;
             padding-bottom: 50px;
-            max-width: calc(100% - 240px); /* Pastikan konten tetap di dalam layar */
+            max-width: calc(100% - 240px);
         }
 
         .breadcrumb-custom {
@@ -103,7 +107,7 @@
         }
 
         .page-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
@@ -111,59 +115,71 @@
     </style>
 </head>
 <body>
-
     <!-- Header -->
     <div class="header">
         <h1>SIM PENDUDUK</h1>
         <div class="user-info">
             <i class="fas fa-user-circle"></i>
-            <span>User</span>
+            <span>Admin</span>
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="#">Penduduk</a>
+        <a href="/Penduduk">Penduduk</a>
         <a href="/Desa">Desa</a>
         <a href="/bantuans" class="active">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="#">Histori</a>
-        <a href="#">LogOut</a>
+        <a href="/Histori">Histori</a>
+        <a href="/Logout">LogOut</a>
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5 mb-5">
-        <!-- Custom Breadcrumb -->
+    <div class="container mt-5">
+        <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="/bantuans">Bantuan</a> / Detail
         </div>
 
+        <!-- Page Title -->
+        <div class="page-title">
+            Detail Bantuan
+        </div>
+
+        <!-- Bantuan Details -->
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <img src="{{ asset('/storage/bantuans/'.$bantuan->image) }}" class="rounded" style="width: 100%">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <h3>{{ $bantuan->title }}</h3>
+                        <h3 class="mb-3">{{ $bantuan->title }}</h3>
                         <hr/>
-                        <p>{{ "Rp " . number_format($bantuan->price, 2, ',', '.') }}</p>
-                        <code>
-                            <p>{!! $bantuan->description !!}</p>
-                        </code>
-                        <hr/>
-                        <p>Stock : {{ $bantuan->stock }}</p>
+                        <div class="mb-3">
+                            <strong>Status:</strong>
+                            <span class="badge bg-{{ $bantuan->status ? 'success' : 'danger' }}">
+                                {{ $bantuan->status ? 'Aktif' : 'Tidak Aktif' }}
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Deskripsi Bantuan:</strong>
+                            <p>{{ $bantuan->description }}</p>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{{ route('bantuans.index') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('bantuans.edit', $bantuan->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('bantuans.destroy', $bantuan->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bantuan ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
