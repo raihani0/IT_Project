@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Prevent horizontal scrolling */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -35,24 +34,10 @@
             font-weight: bold;
         }
 
-        .header .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .header .user-info i {
-            margin-right: 5px;
-        }
-
-        .header .user-info span {
-            font-size: 18px;
-            color: white;
-        }
-
         .sidebar {
             background-color: #333;
             color: white;
-            width: 200px; /* Lebar sidebar */
+            width: 200px;
             position: fixed;
             top: 50px;
             left: 0;
@@ -68,34 +53,33 @@
             display: block;
         }
 
-        .sidebar a:hover {
+        .sidebar a:hover, .sidebar a.active {
             background-color: #575757;
         }
 
         .sidebar a.active {
-            background-color: #575757;
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
         }
 
         .container {
-            margin-left: 220px; /* Menyesuaikan jarak sidebar dengan konten */
-            padding-top: 50px; /* Menyesuaikan jarak konten dengan header */
+            margin-left: 220px;
+            padding-top: 70px;
             padding-bottom: 50px;
-            max-width: calc(100% - 240px); /* Pastikan konten tetap di dalam layar */
+            max-width: calc(100% - 240px);
         }
 
         .breadcrumb-custom {
             background-color: white;
             padding: 10px 15px;
             border-radius: 5px;
-            margin-bottom: 20px;/* Menambah jarak dengan elemen di bawahnya */
-            font-size: 14px; 
+            margin-bottom: 20px;
+            font-size: 14px;
         }
 
         .breadcrumb-custom a {
             text-decoration: none;
-            color: #0d6efd; /* Warna biru untuk link */
+            color: #0d6efd;
         }
 
         .breadcrumb-custom a:hover {
@@ -103,7 +87,7 @@
         }
 
         .page-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
@@ -111,7 +95,6 @@
     </style>
 </head>
 <body>
-
     <!-- Header -->
     <div class="header">
         <h1>SIM PENDUDUK</h1>
@@ -127,14 +110,14 @@
         <a href="#">Penduduk</a>
         <a href="/Desa">Desa</a>
         <a href="/bantuans" class="active">Bantuan</a>
-        <a href="#">Dokumentasi</a>
+        <a href="/Dokumentasi">Dokumentasi</a>
         <a href="#">Histori</a>
         <a href="#">LogOut</a>
     </div>
 
     <!-- Main Content -->
     <div class="container mt-5 mb-5">
-        <!-- Custom Breadcrumb -->
+        <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
             <a href="/bantuans">Bantuan</a>
         </div>
@@ -144,26 +127,18 @@
             Tambah Bantuan Baru
         </div>
 
+        <!-- Form -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('bantuans.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('bantuans.store') }}" method="POST">
                             @csrf
 
+                            <!-- Judul -->
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">Gambar</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                                @error('image')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">Judul</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Bantuan">
+                                <label class="font-weight-bold">NAMA BANTUAN</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Masukkan Nama Bantuan">
                                 @error('title')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -171,8 +146,9 @@
                                 @enderror
                             </div>
 
+                            <!-- Deskripsi -->
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">Deskripsi</label>
+                                <label class="font-weight-bold">DESKRIPSI BANTUAN</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Bantuan">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="alert alert-danger mt-2">
@@ -181,34 +157,18 @@
                                 @enderror
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Harga</label>
-                                        <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" placeholder="Masukkan Harga Bantuan">
-                                        @error('price')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Stok</label>
-                                        <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ old('stock') }}" placeholder="Masukkan Stok Bantuan">
-                                        @error('stock')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+                            <!-- Status -->
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Aktif</option>
+                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                </select>
                             </div>
 
+                            <!-- Tombol Submit -->
                             <button type="submit" class="btn btn-md btn-primary me-3">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning">Reset</button>
-
                         </form> 
                     </div>
                 </div>
