@@ -185,7 +185,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-<<<<<<< HEAD
         // Aktifkan menu sesuai URL saat ini
         const currentUrl = window.location.pathname;
         const menuLinks = document.querySelectorAll('.sidebar a');
@@ -200,10 +199,6 @@
 
         // Notifikasi menggunakan SweetAlert
         if (session('success')) {
-=======
-        // SweetAlert message
-        if(session('success'))
->>>>>>> f78a86205e7bf9db71cc15645c1ea617ebad77e2
             Swal.fire({
                 icon: "success",
                 title: "BERHASIL",
@@ -211,11 +206,7 @@
                 showConfirmButton: false,
                 timer: 2000
             });
-<<<<<<< HEAD
         } else if (session('error')) {
-=======
-        else if(session('error'))
->>>>>>> f78a86205e7bf9db71cc15645c1ea617ebad77e2
             Swal.fire({
                 icon: "error",
                 title: "GAGAL!",
@@ -223,10 +214,7 @@
                 showConfirmButton: false,
                 timer: 2000
             });
-<<<<<<< HEAD
         }
-=======
->>>>>>> f78a86205e7bf9db71cc15645c1ea617ebad77e2
     </script>
 
 </body>

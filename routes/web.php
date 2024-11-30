@@ -5,11 +5,11 @@ use App\Http\Controllers\AuthController;
 
 // Route untuk halaman awal
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome' );
 });
 
 // Route untuk autentikasi
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login' );
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
