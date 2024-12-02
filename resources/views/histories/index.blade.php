@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Bantuan</title>
+    <title>Histori</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -39,15 +39,15 @@
             color: white;
             width: 200px;
             position: fixed;
-            top: 50px; /*beri jarak antar header*/
+            top: 50px;
             left: 0;
             bottom: 0;
-            padding-top: 20px; /*jarak di dalam sidebar*/
+            padding-top: 20px;
             overflow-y: auto;
         }
 
         .sidebar a {
-            padding: 7px 15px; /*menentukan jarak tulisan sidebar*/
+            padding: 7px 15px;
             text-decoration: none;
             color: white;
             display: block;
@@ -55,9 +55,8 @@
 
         .sidebar a:hover, .sidebar a.active {
             background-color: #575757;
-
         }
-        
+
         .sidebar a.active {
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
@@ -112,20 +111,20 @@
         <a href="/Desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/histori">Histori</a>
+        <a href="/histori" class="active">Histori</a>
         <a href="/Logout">LogOut</a>
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5 mb-5">
+    <div class="container">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="/histori">Histori</a>
         </div>
 
         <!-- Page Title -->
         <div class="page-title">
-            Data Bantuan
+            Data Histori
         </div>
 
         <!-- Data Table -->
@@ -133,48 +132,38 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('bantuans.create') }}" class="btn btn-md btn-success mb-3">TAMBAH BANTUAN</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">NO</th>
-                                    <th scope="col">NAMA BANTUAN</th>
+                                    <th scope="col">ID USER</th>
+                                    <th scope="col">NAMA</th>
                                     <th scope="col">STATUS</th>
-                                    <th scope="col" style="width: 20%">TINDAKAN</th>
+                                    <th scope="col">WAKTU</th>
+                                    <th scope="col">ROLE</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($bantuans as $bantuan)
+                                @forelse($histories as $history)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $bantuan->title }}</td>
-                                        <td>
-                                            @if($bantuan->status)
-                                                <span class="badge bg-success">Aktif</span>
-                                            @else
-                                                <span class="badge bg-danger">Tidak Aktif</span>
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('bantuans.destroy', $bantuan->id) }}" method="POST">
-                                                <a href="{{ route('bantuans.show', $bantuan->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                                <a href="{{ route('bantuans.edit', $bantuan->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                            </form>
-                                        </td>
+                                        <td>{{ $history->id_user }}</td>
+                                        <td>{{ $history->name }}</td>
+                                        <td>{{ $history->status }}</td>
+                                        <td>{{ $history->timestamp }}</td>
+                                        <td>{{ $history->role }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center alert alert-danger">
-                                            Data Bantuan belum Tersedia.
+                                        <td colspan="6" class="text-center alert alert-danger">
+                                            Data Histori belum Tersedia.
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $bantuans->links() }}
+                        <!-- Pagination -->
+                        {{ $histories->links() }}
                     </div>
                 </div>
             </div>
@@ -216,6 +205,5 @@
             });
         }
     </script>
-
 </body>
 </html>

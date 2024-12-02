@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BantuanController;
+use App\Http\Controllers\HistoryController;
+
 
 // Route untuk halaman awal
 Route::get('/', function () {
@@ -31,4 +34,9 @@ Route::get('/Dokumentasi', function () {
 });
 
 // Route untuk Bantuan (Resource controller)
-Route::resource('/bantuans', \App\Http\Controllers\BantuanController::class);
+Route::get('/bantuan', [BantuanController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::resource('bantuans', BantuanController::class);
+});
+
+Route::get('/histori', [HistoryController::class, 'index'])->name('histori.index');

@@ -164,7 +164,7 @@
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
 
-        <a href="#">Histori</a>
+        <a href="/histori">Histori</a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
