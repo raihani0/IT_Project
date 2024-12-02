@@ -134,11 +134,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="#">Penduduk</a>
+        <a href="/penduduks">Penduduk</a>
         <a href="/Desa" class="active">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="#">Histori</a>
+        <a href="/Histori">Histori</a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
@@ -149,7 +149,7 @@
     <div class="main-content">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="#">Desa</a> 
+            <a href="/Desa">Desa</a> 
         </div>
 
         <!-- Desa List Buttons -->

@@ -46,7 +46,3 @@ Route::get('/Dokumentasi', function () {
 // Route untuk Bantuan (Resource controller)
 Route::resource('/bantuans', \App\Http\Controllers\BantuanController::class);
 
-
-//Route Desa
-Route::get('/desas', [DesaController::class, 'index']);  
-Route::get('/desas/{nama_desa}', [DesaController::class, 'show']); 

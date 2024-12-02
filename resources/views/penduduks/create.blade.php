@@ -117,12 +117,12 @@
     </div>
 
     <div class="sidebar">
-        <a href="#" class="active">Dashboard</a>
-        <a href="#">Penduduk</a>
+        <a href="/Home">Dashboard</a>
+        <a href="/penduduks" class="active">Penduduk</a>
         <a href="/Desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="#">Histori</a>
+        <a href="/Histori">Histori</a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
@@ -181,11 +181,6 @@
                             <textarea id="status_bantuan" class="form-control" name="status_bantuan" required></textarea>
                         </div>
                         <div class="form-section">
-                            <select name="alamat" required>
-                                @foreach($desa as $d)
-                                <option value="{{ $d->alamat }}">{{ $d->alamat }}</option>
-                                @endforeach
-                            </select>
                             <button class="btn btn-success">Simpan</button>
                         </div>
                     </form>
