@@ -157,14 +157,17 @@
         </div>
     </div>
     <div class="sidebar">
-        <a href="#" class="active">Dashboard</a>
-        <a href="#">Penduduk</a>
+        <a href="/Home" class="active">Dashboard</a>
+        <a href="/penduduks">Penduduk</a>
         <a href="/Desa">Desa</a>
-
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
+<<<<<<< HEAD
 
         <a href="/histori">Histori</a>
+=======
+        <a href="/Histori">Histori</a>
+>>>>>>> d3ed055d14819802f0f8f3d9df3f1453893a0ed8
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
@@ -173,7 +176,7 @@
     </div>
     <div class="content">
         <div class="breadcrumb">
-            <a href="#">Dashboard</a>
+            <a href="/Home">Dashboard</a>
         </div>
         <div class="main-title">Sistem Informasi Pendataan Masyarakat Miskin di Kecamatan Batu Ampar</div>
         <div class="cards">

@@ -55,9 +55,9 @@
             background-color: #333;
             color: white;
             position: fixed;
-            top: 50px; /* Beri jarak dari header */
+            top: 50px;
             bottom: 0;
-            padding-top: 20px; /* Jarak di dalam sidebar */
+            padding-top: 20px;
             font-size: 16px;
         }
 
@@ -80,7 +80,7 @@
 
         .main-content {
             margin-left: 220px;
-            padding-top: 70px; /* Adjusted for header height */
+            padding-top: 70px;
             padding-bottom: 50px;
             max-width: calc(100% - 240px);
         }
@@ -118,6 +118,36 @@
         .button-item:hover {
             background-color: #45a049;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .no-data {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff0000;
+        }
     </style>
 </head>
 
@@ -127,51 +157,56 @@
         <h1>SIM PENDUDUK</h1>
         <div class="user-info">
             <i class="fas fa-user-circle"></i>
-            <span>User</span>
+            <span>Admin</span>
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="/penduduks">Penduduk</a>
+        <a href="#">Penduduk</a>
         <a href="/Desa" class="active">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-<<<<<<< HEAD
         <a href="#">Histori</a>
-        <a href="#">LogOut</a>
-=======
-        <a href="/Histori">Histori</a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
         </form>
->>>>>>> d3ed055d14819802f0f8f3d9df3f1453893a0ed8
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/Desa">Desa</a> 
+            <a href="#">Desa</a> / Data Penduduk Desa
         </div>
 
-        <!-- Desa List Buttons -->
-        <a href="/Ambawang"><button class="button-item">Ambawang</button></a>
-        <a href="/BatuAmpar"><button class="button-item">Batu Ampar</button></a>
-        <a href="/Bluru"><button class="button-item">Bluru</button></a>
-        <a href="/DamarLima"><button class="button-item">Damar Lima</button></a>
-        <a href="/Damit"><button class="button-item">Damit</button></a>
-        <a href="/DamitHulu"><button class="button-item">Damit Hulu</button></a>
-        <a href="/DurianBungkuk"><button class="button-item">Durian Bungkuk</button></a>
-        <a href="/GunungMas"><button class="button-item">Gunung Mas</button></a>
-        <a href="/GunungMelati"><button class="button-item">Gunung Melati</button></a>
-        <a href="/Jilatan"><button class="button-item">Jilatan</button></a>
-        <a href="/JilatanAlur"><button class="button-item">Jilatan Alur</button></a>
-        <a href="/PantaiLinuh"><button class="button-item">Pantai Linuh</button></a>
-        <a href="/TajauMulya"><button class="button-item">Tajau Mulya</button></a>
-        <a href="/TajauPecah"><button class="button-item">Tajau Pecah</button></a>
+        <!-- Data Penduduk -->
+        <div class="main-title">Data Penduduk Desa: {{ $desa->nama_desa }}</div>
+
+        @if($desa->penduduk->isEmpty())
+        <p class="no-data">Tidak ada data penduduk untuk desa ini.</p>
+        @else
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>NIK</th>
+                    <th>Alamat</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($desa->penduduk as $penduduk)
+                <tr>
+                    <td>{{ $penduduk->nama }}</td>
+                    <td>{{ $penduduk->nik }}</td>
+                    <td>{{ $penduduk->alamat }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
