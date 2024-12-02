@@ -2,17 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+<<<<<<< HEAD
+use App\Http\Controllers\BantuanController;
+use App\Http\Controllers\HistoryController;
+=======
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
+>>>>>>> d3ed055d14819802f0f8f3d9df3f1453893a0ed8
 
 
 // Route untuk halaman awal
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome' );
 });
 
 // Route untuk autentikasi
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login' );
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -44,5 +49,14 @@ Route::get('/Dokumentasi', function () {
 });
 
 // Route untuk Bantuan (Resource controller)
+<<<<<<< HEAD
+Route::get('/bantuan', [BantuanController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::resource('bantuans', BantuanController::class);
+});
+
+Route::get('/histori', [HistoryController::class, 'index'])->name('histori.index');
+=======
 Route::resource('/bantuans', \App\Http\Controllers\BantuanController::class);
 
+>>>>>>> d3ed055d14819802f0f8f3d9df3f1453893a0ed8

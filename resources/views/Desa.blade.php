@@ -138,11 +138,16 @@
         <a href="/Desa" class="active">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
+<<<<<<< HEAD
+        <a href="#">Histori</a>
+        <a href="#">LogOut</a>
+=======
         <a href="/Histori">Histori</a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
         </form>
+>>>>>>> d3ed055d14819802f0f8f3d9df3f1453893a0ed8
     </div>
 
     <!-- Main Content -->
