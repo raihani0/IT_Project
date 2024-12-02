@@ -107,13 +107,16 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="/Home">Dashboard</a>
-        <a href="/Penduduk">Penduduk</a>
+    <a href="/Home">Dashboard</a>
+        <a href="/penduduks">Penduduk</a>
         <a href="/Desa">Desa</a>
-        <a href="/bantuans">Bantuan</a>
+        <a href="/bantuans" class="active">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/Histori">Histori</a>
-        <a href="/Logout">LogOut</a>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
+        <form id="logout-form" method="POST" action="/logout" style="display:none;">
+            @csrf
+        </form>
     </div>
 
     <!-- Main Content -->
