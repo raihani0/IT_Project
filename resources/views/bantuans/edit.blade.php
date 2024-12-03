@@ -110,11 +110,19 @@
         <a href="/Desa">Desa</a>
         <a href="/bantuans" class="active">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/Histori">Histori</a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
+        <a href="/histori">Histori</a>
+        <a href="#" onclick="confirmLogout()">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
         </form>
+
+        <script>
+            function confirmLogout() {
+                if (confirm("Apakah Anda yakin ingin logout?")) {
+                    document.getElementById('logout-form').submit();
+                }
+            }
+        </script>
     </div>
 
     <!-- Main Content -->
