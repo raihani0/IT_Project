@@ -112,7 +112,18 @@
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori" class="active">Histori</a>
-        <a href="/Logout">LogOut</a>
+        <a href="#" onclick="confirmLogout()">LogOut</a>
+        <form id="logout-form" method="POST" action="/logout" style="display:none;">
+            @csrf
+        </form>
+
+        <script>
+            function confirmLogout() {
+                if (confirm("Apakah Anda yakin ingin logout?")) {
+                    document.getElementById('logout-form').submit();
+                }
+            }
+        </script>
     </div>
 
     <!-- Main Content -->
