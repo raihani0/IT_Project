@@ -45,11 +45,11 @@
             border-radius: 5px;
         }
         .register-box button {
-            width: 100%;
+            width: 38%;
             padding: 10px;
-            margin: 10px 0;
+            margin: 5px 1%;
             border: none;
-            border-radius: 5px;
+            border-radius: 15px;
             background-color: green;
             color: white;
             cursor: pointer;
@@ -72,8 +72,9 @@
 <body>
     <div class="container">
         <div class="register-box">
-            <h1>SIM <span style="color: green;">PENDUDUK</span></h1>
-            <p>Sistem Informasi Pendataan Penduduk Miskin<br>(Kecamatan Batu Ampar) Berbasis Website</p>
+            <p>Sistem Informasi Pendataan Penduduk Miskin<br>(Kecamatan Batu Ampar)</p>
+            <img src="/images/logobatuampar.png" alt="Logo SIM Penduduk"
+                style="width: 200px; height: auto; margin-bottom: 10px;">
             @if ($errors->any())
                 <div>
                     <ul style="color: red; text-align: left;">
@@ -91,7 +92,7 @@
                 <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
                 <button type="submit">Register</button>
             </form>
-            <a href="{{ route('login') }}">Sudah punya akun? Login di sini</a>
+            <p><a href="{{ route('login') }}">Sudah punya akun? Login di sini</a></p>
         </div>
     </div>
 </body>
