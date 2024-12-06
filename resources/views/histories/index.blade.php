@@ -35,7 +35,7 @@
         }
 
         .sidebar {
-            background-color: #333;
+            background-color: #31363F;
             color: white;
             width: 200px;
             position: fixed;
@@ -107,7 +107,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="/Penduduk">Penduduk</a>
+        <a href="/penduduks">Penduduk</a>
         <a href="/Desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
