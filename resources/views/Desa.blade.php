@@ -52,7 +52,7 @@
 
         .sidebar {
             width: 200px;
-            background-color: #333;
+            background-color: #31363F;
             color: white;
             position: fixed;
             top: 50px; /* Beri jarak dari header */

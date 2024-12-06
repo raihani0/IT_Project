@@ -15,9 +15,17 @@
 
         .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            text-align: center; /* Supaya teks di atas juga terpusat */
+        }
+
+        .container h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: white;
         }
 
         .login-box {
@@ -27,18 +35,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
             width: 350px;
-        }
-
-        .login-box h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: green;
-        }
-
-        .login-box p {
-            font-size: 14px;
-            color: gray;
-            margin-bottom: 20px;
         }
 
         .login-box input[type="email"],
@@ -70,8 +66,10 @@
 
 <body>
     <div class="container">
+       
+        <h1>Sistem Informasi Pendataan Penduduk Miskin<br>(Kecamatan Batu Ampar)</h1>
+
         <div class="login-box">
-            <p>Sistem Informasi Pendataan Penduduk Miskin<br>(Kecamatan Batu Ampar)</p>
             <img src="/images/logobatuampar.png" alt="Logo SIM Penduduk"
                 style="width: 200px; height: auto; margin-bottom: 10px;">
             @if ($errors->any())

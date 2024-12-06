@@ -45,7 +45,7 @@
 
         .sidebar {
             width: 200px;
-            background-color: #333;
+            background-color: #31363F;
             color: white;
             position: fixed;
             top: 50px;
@@ -74,6 +74,30 @@
         .content {
             margin-left: 200px;
             padding: 90px 30px 30px 30px;
+        }
+
+        .breadcrumb {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -109,12 +133,15 @@
     </div>
 
     <div class="content">
+        <div class="breadcrumb">
+            <a href="/penduduks">Penduduk</a>
+        </div>
+        <div class="page-title">
+            Data Penduduk
+        </div>
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-9">
-                        <h4>Penduduk</h4>
-                    </div>
                     <div class="col-md-12 text-end">
                         <a href="{{ route('penduduks.create') }}" class="btn btn-success">Tambah Penduduk</a>
                     </div>
