@@ -9,21 +9,13 @@ class Penduduk extends Model
 {
     use HasFactory;
 
-    /**
-     * Attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         "nama",
         "nik",
-        "kecamatan",
-        "kelurahan",
+        "desa",
         "alamat",
         "jenis_bantuan",
         "nominal",
-        "status_bantuan"
-
+        "status_bantuan",
     ];
 }
-

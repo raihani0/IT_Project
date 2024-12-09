@@ -38,11 +38,11 @@
         .header .user-info {
             display: flex;
             align-items: center;
-            padding-right: 20px;
+            padding-right: 18px;
         }
 
         .header .user-info i {
-            margin-right: 5px;
+            margin-right: 10px;
         }
 
         .header .user-info span {
@@ -127,7 +127,7 @@
         <h1>SIM PENDUDUK</h1>
         <div class="user-info">
             <i class="fas fa-user-circle"></i>
-            <span>User</span>
+            <span>Admin</span>
         </div>
     </div>
 
@@ -138,19 +138,11 @@
         <a href="/Desa" class="active">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/histori">Histori</a>
-        <a href="#" onclick="confirmLogout()">LogOut</a>
+        <a href="/Histori">Histori</a>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
         </form>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
 
     <!-- Main Content -->

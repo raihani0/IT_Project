@@ -6,6 +6,7 @@ use App\Http\Controllers\BantuanController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
+use App\Http\Controllers\FonnteController;
 
 // Route untuk halaman awal
 Route::get('/', function () {
@@ -54,3 +55,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/histori', [HistoryController::class, 'index'])->name('histori.index');
+
+// Rute untuk menampilkan form
+Route::get('/send-message', [FonnteController::class, 'showForm']);
+
+// Rute untuk memproses pengiriman pesan
+Route::post('/send-message', [FonnteController::class, 'sendMessage']);
