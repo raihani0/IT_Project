@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -22,7 +23,6 @@
             left: 0;
             right: 0;
             z-index: 1;
-            /* Pastikan header di atas sidebar */
         }
 
         .header .title {
@@ -46,10 +46,8 @@
             color: white;
             position: fixed;
             top: 50px;
-            /* Beri jarak dari header */
             bottom: 0;
             padding-top: 20px;
-            /* Jarak di dalam sidebar */
             font-size: 16px;
         }
 
@@ -73,12 +71,11 @@
         .content {
             margin-left: 200px;
             padding: 90px 30px 30px 30px;
-            /* Tambahkan padding top untuk content */
         }
 
         .breadcrumb {
             background-color: white;
-            padding: 10px 15px;
+            padding: 11px 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             font-size: 14px;
@@ -112,15 +109,17 @@
             border-radius: 8px;
             display: flex;
             align-items: center;
+            flex-direction: column;
             padding: 20px;
             margin: 10px;
-            width: 180px;
+            width: 200px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .card i {
             font-size: 36px;
-            margin-right: 15px;
+            margin-bottom: 10px;
         }
 
         .card.blue i {
@@ -131,10 +130,6 @@
             color: #28a745;
         }
 
-        .card .info {
-            text-align: left;
-        }
-
         .card .info .title {
             font-size: 18px;
             font-weight: bold;
@@ -143,6 +138,48 @@
 
         .card .info .number {
             font-size: 24px;
+            color: #333;
+        }
+
+        .detail-link {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .detail-link:hover {
+            text-decoration: underline;
+        }
+
+        .card.whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .card.whatsapp i {
+            color: white;
+            margin-top: 10px; /* Tambahkan margin atas */
+        }
+
+        .card.whatsapp .info .title {
+            font-size: 18px;
+        }
+
+        .card.whatsapp .info .number {
+            font-size: 18px;
+            color: white;
+        }
+
+        .card.whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        .caption {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
             color: #333;
         }
     </style>
@@ -162,21 +199,12 @@
         <a href="/Desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/histori">Histori</a>
-        <a href="#" onclick="confirmLogout()">LogOut</a>
+        <a href="/Histori">Histori</a>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
             @csrf
         </form>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
-    
     <div class="content">
         <div class="breadcrumb">
             <a href="/Home">Dashboard</a>
@@ -188,6 +216,7 @@
                 <div class="info">
                     <div class="title">Desa</div>
                     <div class="number">14</div>
+                    <a href="/Desa" class="detail-link">Lihat Detail ></a>
                 </div>
             </div>
             <div class="card green">
@@ -196,6 +225,7 @@
                     <div class="title">Warga</div>
                     <div class="number">200</div>
                 </div>
+                <a href="/penduduks" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card blue">
                 <i class="fas fa-hand-holding-usd"></i>
@@ -203,6 +233,7 @@
                     <div class="title">Bantuan</div>
                     <div class="number">7</div>
                 </div>
+                <a href="/bantuans" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card green">
                 <i class="fas fa-clipboard-check"></i>
@@ -210,7 +241,18 @@
                     <div class="title">Status Penerima</div>
                     <div class="number">55</div>
                 </div>
+                <a href="/Histori" class="detail-link">Lihat Detail ></a>
             </div>
+            <div class="card whatsapp">
+                <a href="https://wa.me/6281234567890" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; text-align: center; flex-direction: column;">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="title">Contact Us</div>
+                    <div class="number">WhatsApp</div>
+                </a>
+            </div>
+        </div>
+        <div class="caption">
+            IT Project Kelompok 5
         </div>
     </div>
 </body>

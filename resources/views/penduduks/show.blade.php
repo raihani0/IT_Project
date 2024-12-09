@@ -1,68 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIM PENDUDUK</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail Penduduk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #D3D3D3;
+            background-color: lightgray;
+            overflow-x: hidden;
         }
 
+        /* Header Styling */
         .header {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
+            z-index: 1000;
         }
 
-        .header .title {
+        .header h1 {
+            margin: 0;
             font-size: 24px;
             font-weight: bold;
         }
 
-        .header .user {
+        .user-info {
             display: flex;
             align-items: center;
-            font-size: 18px;
+            gap: 10px;
         }
 
-        .header .user i {
-            margin-right: 10px;
+        .user-info i {
+            font-size: 16px;
+            color: white;
         }
 
+        .user-info span {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Sidebar Styling */
         .sidebar {
-            width: 200px;
             background-color: #31363F;
             color: white;
+            width: 200px;
             position: fixed;
             top: 50px;
+            left: 0;
             bottom: 0;
             padding-top: 20px;
-            font-size: 16px;
+            overflow-y: auto;
         }
 
         .sidebar a {
-            display: block;
-            color: white;
-            padding: 10px 15px;
+            padding: 7px 15px;
             text-decoration: none;
+            color: white;
+            display: block;
         }
 
-        .sidebar a:hover,
-        .sidebar a.active {
+        .sidebar a:hover, .sidebar a.active {
             background-color: #575757;
         }
 
@@ -71,56 +81,68 @@
             padding-left: 16px;
         }
 
-        .content {
-            margin-left: 200px;
-            padding: 90px 30px 30px 30px;
-            max-width: 1200px; /* Membatasi lebar konten agar lebih rapi */
-            margin-right: auto; /* Menjaga agar konten rata tengah */
+        /* Main Content Styling */
+        .container {
+            margin-left: 220px;
+            padding-top: 70px;
+            padding-bottom: 50px;
+            max-width: calc(100% - 240px);
         }
 
-        .card {
-            max-width: 900px; /* Membatasi lebar card */
-            margin: auto; /* Membuat card berada di tengah */
-            padding: 20px; /* Memberikan padding di dalam card */
+        .breadcrumb-custom {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
 
-        .card-header h4 {
-            font-size: 24px;
+        .breadcrumb-custom a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+
+        .breadcrumb-custom a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        .card-body p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
+        /* Card Styling */
+        .card-body h3 {
+            font-size: 24px;
             font-weight: bold;
         }
 
-        .form-control {
-            margin-bottom: 10px;
+        .card-body .mb-3 {
+            font-size: 16px;
+        }
+
+        .card-body .badge {
+            font-size: 14px;
         }
     </style>
 </head>
-
 <body>
+    <!-- Header -->
     <div class="header">
-        <div class="title">SIM PENDUDUK</div>
-        <div class="user">
+        <h1>SIM PENDUDUK</h1>
+        <div class="user-info">
             <i class="fas fa-user-circle"></i>
             <span>Admin</span>
         </div>
     </div>
 
+    <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
         <a href="/penduduks" class="active">Penduduk</a>
-        <a href="/Desa">Desa</a>
+        <a href="/desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
@@ -138,35 +160,65 @@
         </script>
     </div>
 
-    <div class="content">
-        @extends("penduduks.layouts")
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-custom">
+            <a href="/penduduks">Penduduk</a> / Detail
+        </div>
 
-        @section("content")
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4>Show Penduduk</h4>
-                    </div>
-                    <div class="col-md-3 text-end">
-                        <a href="{{ route('penduduks.index') }}" class="btn btn-primary">Kembali</a>
+        <!-- Page Title -->
+        <div class="page-title">
+            Detail Penduduk
+        </div>
+
+        <!-- Penduduk Details -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-0 shadow-sm rounded">
+                    <div class="card-body">
+                        <h3 class="mb-3">{{ $penduduk->nama }}</h3>
+                        <hr/>
+                        <div class="mb-3">
+                            <strong>ID:</strong> {{ $penduduk->id }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>NIK:</strong> {{ $penduduk->nik }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Desa:</strong> {{ $penduduk->desa }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Alamat:</strong> {{ $penduduk->alamat }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Jenis Bantuan:</strong> {{ $penduduk->jenis_bantuan }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Nominal Bantuan:</strong> {{ $penduduk->nominal }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Status Bantuan:</strong> 
+                            <span class="badge bg-{{ $penduduk->status_bantuan ? 'success' : 'danger' }}">
+                                {{ $penduduk->status_bantuan ? 'Sudah Menerima' : 'Belum Menerima' }}
+                            </span>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{{ route('penduduks.index') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('penduduks.destroy', $penduduk->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penduduk ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <p><strong>ID:</strong> {{$penduduk->id}}</p>
-                <p><strong>Nama:</strong> {{$penduduk->nama}}</p>
-                <p><strong>Nik:</strong> {{$penduduk->nik}}</p>
-                <p><strong>Kecamatan:</strong> {{$penduduk->kecamatan}}</p>
-                <p><strong>Kelurahan:</strong> {{$penduduk->kelurahan}}</p>
-                <p><strong>Alamat:</strong> {{$penduduk->alamat}}</p>
-                <p><strong>Jenis Bantuan:</strong> {{$penduduk->jenis_bantuan}}</p>
-                <p><strong>Nominal:</strong> {{$penduduk->nominal}}</p>
-                <p><strong>Status Bantuan:</strong> {{$penduduk->status_bantuan}}</p>
-            </div>
         </div>
-        @endsection
     </div>
-</body>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

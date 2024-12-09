@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIM PENDUDUK</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -30,6 +30,7 @@
 
         .header .title {
             font-size: 24px;
+            font-weight: bold;
         }
 
         .header .user {
@@ -80,13 +81,12 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            max-width: 800px;
             margin: auto;
         }
 
         .form-container label {
             font-weight: normal;
-            /* Label tidak tebal */
         }
 
         .form-container .form-control {
@@ -99,6 +99,10 @@
 
         .form-section {
             margin-bottom: 15px;
+        }
+
+        .form-section .row {
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -113,9 +117,9 @@
     </div>
 
     <div class="sidebar">
-    <a href="/Home">Dashboard</a>
+        <a href="/Home">Dashboard</a>
         <a href="/penduduks" class="active">Penduduk</a>
-        <a href="/Desa">Desa</a>
+        <a href="/desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
@@ -134,11 +138,11 @@
     </div>
 
     <div class="content">
-        <div class="container pt-5">
-            @extends("penduduks.layouts")
-
-            @section("content")
-            <div class="card form-container">
+        <div class="breadcrumb">
+            <a href="/penduduks">Penduduk</a> / Edit Penduduk
+        </div>
+        <div class="form-container">
+            <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
@@ -161,17 +165,12 @@
 
                         <div class="form-section">
                             <label for="nik">NIK:</label>
-                            <textarea id="nik" name="nik" class="form-control" required>{{ $penduduk->nik }}</textarea>
+                            <input type="text" id="nik" name="nik" class="form-control" value="{{ $penduduk->nik }}" required>
                         </div>
 
                         <div class="form-section">
-                            <label for="kecamatan">Kecamatan:</label>
-                            <textarea id="kecamatan" name="kecamatan" class="form-control" required>{{ $penduduk->kecamatan }}</textarea>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="kelurahan">Kelurahan:</label>
-                            <textarea id="kelurahan" name="kelurahan" class="form-control" required>{{ $penduduk->kelurahan }}</textarea>
+                            <label for="desa">Desa:</label>
+                            <input type="text" id="desa" name="desa" class="form-control" value="{{ $penduduk->desa }}" required>
                         </div>
 
                         <div class="form-section">
@@ -181,27 +180,28 @@
 
                         <div class="form-section">
                             <label for="jenis_bantuan">Jenis Bantuan:</label>
-                            <textarea id="jenis_bantuan" name="jenis_bantuan" class="form-control" required>{{ $penduduk->jenis_bantuan }}</textarea>
+                            <input type="text" id="jenis_bantuan" name="jenis_bantuan" class="form-control" value="{{ $penduduk->jenis_bantuan }}" required>
                         </div>
 
                         <div class="form-section">
                             <label for="nominal">Nominal:</label>
-                            <textarea id="nominal" name="nominal" class="form-control" required>{{ $penduduk->nominal }}</textarea>
+                            <input type="number" id="nominal" name="nominal" class="form-control" value="{{ $penduduk->nominal }}" required>
                         </div>
 
                         <div class="form-section">
                             <label for="status_bantuan">Status Bantuan:</label>
-                            <textarea id="status_bantuan" name="status_bantuan" class="form-control" required>{{ $penduduk->status_bantuan }}</textarea>
+                            <select id="status_bantuan" class="form-control" name="status_bantuan" required>
+                                <option value="1" {{ $penduduk->status_bantuan == 1 ? 'selected' : '' }}>Sudah Menerima</option>
+                                <option value="0" {{ $penduduk->status_bantuan == 0 ? 'selected' : '' }}>Belum Menerima</option>
+                            </select>
                         </div>
 
                         <div class="form-section">
                             <button class="btn btn-success">Simpan</button>
                         </div>
-
                     </form>
                 </div>
             </div>
-            @endsection
         </div>
     </div>
 </body>

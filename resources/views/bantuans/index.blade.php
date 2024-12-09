@@ -65,7 +65,7 @@
 
         .container {
             margin-left: 220px;
-            padding-top: 70px;
+            padding-top: 50px;
             padding-bottom: 50px;
             max-width: calc(100% - 240px);
         }

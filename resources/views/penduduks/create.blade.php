@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIM PENDUDUK</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -30,6 +30,7 @@
 
         .header .title {
             font-size: 24px;
+            font-weight: bold;
         }
 
         .header .user {
@@ -86,7 +87,6 @@
 
         .form-container label {
             font-weight: normal;
-            /* Mengubah teks label agar tidak tebal */
         }
 
         .form-container .form-control {
@@ -119,7 +119,7 @@
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
         <a href="/penduduks" class="active">Penduduk</a>
-        <a href="/Desa">Desa</a>
+        <a href="/desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
@@ -138,11 +138,11 @@
     </div>
 
     <div class="content">
-        <div class="container pt-5">
-            @extends("penduduks.layouts")
-
-            @section("content")
-            <div class="card form-container">
+        <div class="breadcrumb">
+            <a href="/penduduks">Penduduk</a>
+        </div>
+        <div class="form-container">
+            <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
@@ -158,35 +158,34 @@
                         @csrf
                         <div class="form-section">
                             <label for="nama">Nama:</label>
-                            <input type="text" id="nama" name="nama" class="form-control" required>
+                            <input type="text" id="nama" name="nama" class="form-control" required maxlength="255">
                         </div>
                         <div class="form-section">
                             <label for="nik">NIK:</label>
-                            <textarea id="nik" class="form-control" name="nik" required></textarea>
+                            <input type="text" id="nik" class="form-control" name="nik" required maxlength="16" minlength="16" pattern="\d+">
                         </div>
                         <div class="form-section">
-                            <label for="kecamatan">Kecamatan:</label>
-                            <textarea id="kecamatan" class="form-control" name="kecamatan" required></textarea>
-                        </div>
-                        <div class="form-section">
-                            <label for="kelurahan">Kelurahan:</label>
-                            <textarea id="kelurahan" class="form-control" name="kelurahan" required></textarea>
+                            <label for="desa">Desa:</label>
+                            <input type="text" id="desa" class="form-control" name="desa" required maxlength="255">
                         </div>
                         <div class="form-section">
                             <label for="alamat">Alamat:</label>
-                            <textarea id="alamat" class="form-control" name="alamat" required></textarea>
+                            <textarea id="alamat" class="form-control" name="alamat" required maxlength="255"></textarea>
                         </div>
                         <div class="form-section">
                             <label for="jenis_bantuan">Jenis Bantuan:</label>
-                            <textarea id="jenis_bantuan" class="form-control" name="jenis_bantuan" required></textarea>
+                            <input type="text" id="jenis_bantuan" class="form-control" name="jenis_bantuan" required maxlength="100">
                         </div>
                         <div class="form-section">
                             <label for="nominal">Nominal:</label>
-                            <textarea id="nominal" class="form-control" name="nominal" required></textarea>
+                            <input type="number" id="nominal" class="form-control" name="nominal" required min="0" step="0.01">
                         </div>
                         <div class="form-section">
                             <label for="status_bantuan">Status Bantuan:</label>
-                            <textarea id="status_bantuan" class="form-control" name="status_bantuan" required></textarea>
+                            <select id="status_bantuan" class="form-control" name="status_bantuan" required>
+                                <option value="1">Sudah Menerima</option>
+                                <option value="0">Belum Menerima</option>
+                            </select>
                         </div>
                         <div class="form-section">
                             <button class="btn btn-success">Simpan</button>
@@ -194,7 +193,6 @@
                     </form>
                 </div>
             </div>
-            @endsection
         </div>
     </div>
 </body>
