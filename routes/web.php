@@ -7,10 +7,13 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
 
-
 // Route untuk halaman awal
 Route::get('/', function () {
-    return view('welcome' );
+    return view('homepage' );
+});
+
+Route::get('/homepage', function () {
+    return view('homepage');
 });
 
 // Route untuk autentikasi
@@ -29,7 +32,6 @@ Route::get('/Home', function () {
 Route::get('/Desa', function () {
     return view('Desa');
 });
-
 
 //Route untuk penduduk
 Route::get("/penduduks", [PendudukController::class, 'index'])->name("penduduks.index");
