@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIM PENDUDUK</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -17,7 +17,7 @@
         .header {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 6px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -57,7 +57,7 @@
         .sidebar a {
             display: block;
             color: white;
-            padding: 10px 15px;
+            padding: 7px 15px;
             text-decoration: none;
         }
 
@@ -74,11 +74,12 @@
         .content {
             margin-left: 200px;
             padding: 90px 30px 30px 30px;
+            background: lightgray;
         }
 
         .breadcrumb {
             background-color: white;
-            padding: 10px 15px;
+            padding: 9px 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             font-size: 14px;
@@ -99,6 +100,11 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
+        .badge-status {
+            font-size: 14px;
+            padding: 5px 10px;
+        }
     </style>
 </head>
 
@@ -112,7 +118,7 @@
     </div>
 
     <div class="sidebar">
-    <a href="/Home">Dashboard</a>
+        <a href="/Home">Dashboard</a>
         <a href="/penduduks" class="active">Penduduk</a>
         <a href="/Desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
@@ -120,13 +126,19 @@
         <a href="/histori">Histori</a>
         <a href="#" onclick="confirmLogout()">LogOut</a>
         <form id="logout-form" method="POST" action="/logout" style="display:none;">
-            @csrf
+            @csrfs
         </form>
 
         <script>
             function confirmLogout() {
                 if (confirm("Apakah Anda yakin ingin logout?")) {
                     document.getElementById('logout-form').submit();
+                }
+            }
+
+            function confirmDelete(event) {
+                if (!confirm("Apakah Anda yakin ingin menghapus data penduduk ini?")) {
+                    event.preventDefault(); // Mencegah form dikirimkan jika tidak yakin
                 }
             }
         </script>
@@ -140,51 +152,50 @@
             Data Penduduk
         </div>
         <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-12 text-end">
-                        <a href="{{ route('penduduks.create') }}" class="btn btn-success">Tambah Penduduk</a>
-                    </div>
-                </div>
-            </div>
             <div class="card-body">
+                <!-- Tombol Tambah Penduduk -->
+                <a href="{{ route('penduduks.create') }}" class="btn btn-md btn-success mb-3">TAMBAH PENDUDUK</a>
+
+                <!-- Tabel Data Penduduk -->
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Nik</th>
-                            <th>Kecamatan</th>
-                            <th>Kelurahan</th>
-                            <th>Alamat</th>
-                            <th>Jenis Bantuan</th>
-                            <th>Nominal</th>
-                            <th>Status Bantuan</th>
-                            <th>Action</th>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">NIK</th>
+                            <th scope="col">Desa</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Jenis Bantuan</th>
+                            <th scope="col">Nominal</th>
+                            <th scope="col">Status Bantuan</th>
+                            <th scope="col" style="width: 20%">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($penduduks as $penduduk)
                         <tr>
-                            <td>{{ $penduduk->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $penduduk->nama }}</td>
                             <td>{{ $penduduk->nik }}</td>
-                            <td>{{ $penduduk->kecamatan }}</td>
-                            <td>{{ $penduduk->kelurahan }}</td>
+                            <td>{{ $penduduk->desa }}</td>
                             <td>{{ $penduduk->alamat }}</td>
                             <td>{{ $penduduk->jenis_bantuan }}</td>
                             <td>{{ $penduduk->nominal }}</td>
-                            <td>{{ $penduduk->status_bantuan }}</td>
                             <td>
-                                <div class="d-flex gap-2">
-                                    <a href="{{ route('penduduks.show', $penduduk->id) }}" class="btn btn-primary">Show</a>
-                                    <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-info">Edit</a>
-                                    <form method="POST" action="{{ route('penduduks.destroy', $penduduk->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger">Delete</button>
-                                    </form>
-                                </div>
+                                @if($penduduk->status_bantuan == 1)
+                                <span class="badge bg-success badge-status">Sudah Menerima</span>
+                                @else
+                                <span class="badge bg-danger badge-status">Belum Menerima</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <form onsubmit="confirmDelete(event)" action="{{ route('penduduks.destroy', $penduduk->id) }}" method="POST">
+                                    <a href="{{ route('penduduks.show', $penduduk->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                    <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
