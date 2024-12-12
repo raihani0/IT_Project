@@ -29,7 +29,7 @@ class FonnteController extends Controller
         ]);
 
         // Nomor telepon tetap (hardcoded)
-        $phone = '6282251602866'; // Nomor penerima dalam format internasional
+        $phone = '62887435414960'; // Nomor penerima dalam format internasional
         $message = $request->input('message'); // Pesan dari input form
         $file = $request->input('file', null); // URL file opsional
 
