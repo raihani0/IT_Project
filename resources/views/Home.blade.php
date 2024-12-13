@@ -219,7 +219,11 @@
         <div class="title">SIM PENDUDUK</div>
         <div class="user">
             <i class="fas fa-user-circle"></i>
+<<<<<<< HEAD
             <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+=======
+            <span>Admin</span>
+>>>>>>> main
         </div>
     </div>
     <div class="sidebar">
