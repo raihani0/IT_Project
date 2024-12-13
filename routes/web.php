@@ -7,19 +7,27 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FonnteController;
-
+use App\Http\Controllers\WhatsAppFonntController;
+use App\Http\Controllers\WhatsAppController;
 
 // Route untuk halaman awal
 Route::get('/', function () {
-    return view('welcome' );
+    return view('welcome');
 });
 
 // Route untuk autentikasi
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login' );
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route untuk login dengan Google
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+// Route untuk logout dari Google
+Route::get('/logout-google', [AuthController::class, 'logoutGoogle'])->name('logout.google');
 
 // Route untuk halaman utama dengan middleware auth
 Route::get('/Home', function () {
@@ -31,8 +39,7 @@ Route::get('/Desa', function () {
     return view('Desa');
 });
 
-
-//Route untuk penduduk
+// Route untuk penduduk
 Route::get("/penduduks", [PendudukController::class, 'index'])->name("penduduks.index");
 Route::get("/penduduks/create", [PendudukController::class, 'create'])->name("penduduks.create");
 Route::post("penduduks", [PendudukController::class, 'store'])->name("penduduks.store");
@@ -53,9 +60,3 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/histori', [HistoryController::class, 'index'])->name('histori.index');
-
-// Rute untuk menampilkan form
-Route::get('/send-message', [FonnteController::class, 'showForm']);
-
-// Rute untuk memproses pengiriman pesan
-Route::post('/send-message', [FonnteController::class, 'sendMessage']);

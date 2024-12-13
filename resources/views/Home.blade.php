@@ -160,7 +160,7 @@
 
         .card.whatsapp i {
             color: white;
-            margin-top: 10px; /* Tambahkan margin atas */
+            margin-top: 10px;
         }
 
         .card.whatsapp .info .title {
@@ -182,6 +182,35 @@
             font-size: 14px;
             color: #333;
         }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #31363F;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
     </style>
 </head>
 
@@ -190,7 +219,7 @@
         <div class="title">SIM PENDUDUK</div>
         <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>Admin</span>
+            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
         </div>
     </div>
     <div class="sidebar">
@@ -199,11 +228,21 @@
         <a href="/Desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/Histori">Histori</a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
-        <form id="logout-form" method="POST" action="/logout" style="display:none;">
-            @csrf
-        </form>
+        <a href="/histori">Histori</a>
+        <!-- Dropdown for Logout -->
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Logout :</a>
+            <div class="dropdown-content">
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
+                    @csrf
+                </form>
+                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" method="POST" action="/logout" style="display:none;">
+                    @csrf
+                </form>
+            </div>
+        </div>
     </div>
     <div class="content">
         <div class="breadcrumb">
@@ -231,7 +270,7 @@
                 <i class="fas fa-hand-holding-usd"></i>
                 <div class="info">
                     <div class="title">Bantuan</div>
-                    <div class="number">7</div>
+                    <div class="number">50</div>
                 </div>
                 <a href="/bantuans" class="detail-link">Lihat Detail ></a>
             </div>
@@ -244,17 +283,13 @@
                 <a href="/Histori" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card whatsapp">
-                <a href="https://wa.me/6281234567890" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; text-align: center; flex-direction: column;">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="title">Contact Us</div>
-                    <div class="number">WhatsApp</div>
-                </a>
+                <i class="fab fa-whatsapp"></i>
+                <div class="info">
+                    <div class="title">WhatsApp</div>
+                </div>
+                <a href="https://wa.me/62887435414960" class="detail-link" target="_blank">Lihat Detail ></a>
             </div>
-        </div>
-        <div class="caption">
-            IT Project Kelompok 5
         </div>
     </div>
 </body>
-
 </html>

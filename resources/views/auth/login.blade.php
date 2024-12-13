@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,22 +11,12 @@
             background: url('/images/KantorKecamatan.jpg') no-repeat center center fixed;
             background-size: cover;
         }
-
         .container {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            text-align: center; /* Supaya teks di atas juga terpusat */
         }
-
-        .container h1 {
-            font-size: 30px;
-            margin-bottom: 10px;
-            color: white;
-        }
-
         .login-box {
             background: rgba(255, 255, 255, 0.9);
             padding: 20px 30px;
@@ -36,7 +25,16 @@
             text-align: center;
             width: 350px;
         }
-
+        .login-box h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: green;
+        }
+        .login-box p {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 20px;
+        }
         .login-box input[type="email"],
         .login-box input[type="password"] {
             width: 100%;
@@ -45,33 +43,41 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-
         .login-box button {
-            width: 38%;
+            width: 48%;
             padding: 10px;
             margin: 5px 1%;
             border: none;
-            border-radius: 15px;
+            border-radius: 5px;
             background-color: green;
             color: white;
             cursor: pointer;
             font-size: 16px;
         }
-
         .login-box button:hover {
             background-color: darkgreen;
         }
+        .google-login {
+            background-color: #4285F4;
+            color: white;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .google-login:hover {
+            background-color: #3367D6;
+        }
     </style>
 </head>
-
 <body>
     <div class="container">
-       
-        <h1>Sistem Informasi Pendataan Penduduk Miskin<br>(Kecamatan Batu Ampar)</h1>
-
         <div class="login-box">
-            <img src="/images/logobatuampar.png" alt="Logo SIM Penduduk"
-                style="width: 200px; height: auto; margin-bottom: 10px;">
+            <h1>SIM <span style="color: green;">PENDUDUK</span></h1>
+            <p>Sistem Informasi Pendataan Penduduk Miskin<br>(Kecamatan Batu Ampar) Berbasis Website</p>
             @if ($errors->any())
                 <div>
                     <ul style="color: red; text-align: left;">
@@ -88,8 +94,10 @@
                 <button type="submit">Login</button>
                 <button type="button" onclick="window.location='{{ route('register') }}'">Register</button>
             </form>
+            <button type="button" class="google-login" onclick="window.location='{{ route('google.login') }}'">
+                Login dengan Google
+            </button>
         </div>
     </div>
 </body>
-
 </html>
