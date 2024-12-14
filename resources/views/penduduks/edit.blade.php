@@ -57,7 +57,7 @@
         .sidebar a {
             display: block;
             color: white;
-            padding: 10px 15px;
+            padding: 7px 15px;
             text-decoration: none;
         }
 
@@ -74,6 +74,30 @@
         .content {
             margin-left: 200px;
             padding: 90px 30px 30px 30px;
+        }
+
+        .breadcrumb-custom {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .breadcrumb-custom a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+
+        .breadcrumb-custom a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .form-container {
@@ -104,6 +128,35 @@
         .form-section .row {
             margin-bottom: 10px;
         }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #31363F;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
     </style>
 </head>
 
@@ -112,7 +165,7 @@
         <div class="title">SIM PENDUDUK</div>
         <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>Admin</span>
+            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
         </div>
     </div>
 
@@ -123,11 +176,20 @@
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
-        <a href="#" onclick="confirmLogout()">LogOut</a>
-        <form id="logout-form" method="POST" action="/logout" style="display:none;">
-            @csrf
-        </form>
-
+        <!-- Dropdown for Logout -->
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Logout :</a>
+            <div class="dropdown-content">
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
+                    @csrf
+                </form>
+                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" method="POST" action="/logout" style="display:none;">
+                    @csrf
+                </form>
+            </div>
+        </div>
         <script>
             function confirmLogout() {
                 if (confirm("Apakah Anda yakin ingin logout?")) {
@@ -138,9 +200,11 @@
     </div>
 
     <div class="content">
-        <div class="breadcrumb">
-            <a href="/penduduks">Penduduk</a> / Edit Penduduk
-        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-custom">
+                <li class="breadcrumb-item"><a href="/penduduks">Penduduk</a></li>
+            </ol>
+        </nav>
         <div class="form-container">
             <div class="card">
                 <div class="card-header">

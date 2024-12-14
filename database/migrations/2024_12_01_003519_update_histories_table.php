@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::table('histories', function (Blueprint $table) {
+            // Tambahkan perubahan pada tabel di sini
+            $table->string('new_column')->nullable(); // Contoh perubahan
+        });
+    }
 
-class History extends Model
-{
-    use HasFactory;
-
-    protected $fillable = [
-        'id_user',
-        'name',
-        'status',
-        'timestamp',
-        'role',
-    ];
-}
+    public function down(): void
+    {
+        Schema::table('histories', function (Blueprint $table) {
+            $table->dropColumn('new_column'); // Hapus kolom saat rollback
+        });
+    }
+};
