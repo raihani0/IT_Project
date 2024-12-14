@@ -7,12 +7,14 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FonnteController;
-use App\Http\Controllers\WhatsAppFonntController;
-use App\Http\Controllers\WhatsAppController;
 
 // Route untuk halaman awal
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage' );
+});
+
+Route::get('/homepage', function () {
+    return view('homepage');
 });
 
 // Route untuk autentikasi
@@ -39,7 +41,7 @@ Route::get('/Desa', function () {
     return view('Desa');
 });
 
-// Route untuk penduduk
+//Route untuk penduduk
 Route::get("/penduduks", [PendudukController::class, 'index'])->name("penduduks.index");
 Route::get("/penduduks/create", [PendudukController::class, 'create'])->name("penduduks.create");
 Route::post("penduduks", [PendudukController::class, 'store'])->name("penduduks.store");
