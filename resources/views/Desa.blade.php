@@ -118,6 +118,35 @@
         .button-item:hover {
             background-color: #45a049;
         }
+
+                /* Dropdown Styles */
+                .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #31363F;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
     </style>
 </head>
 
@@ -127,7 +156,7 @@
         <h1>SIM PENDUDUK</h1>
         <div class="user-info">
             <i class="fas fa-user-circle"></i>
-            <span>Admin</span>
+            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
         </div>
     </div>
 
@@ -138,11 +167,21 @@
         <a href="/Desa" class="active">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/Histori">Histori</a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
-        <form id="logout-form" method="POST" action="/logout" style="display:none;">
-            @csrf
-        </form>
+        <a href="/histori">Histori</a>
+        <!-- Dropdown for Logout -->
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle">Logout :</a>
+            <div class="dropdown-content">
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
+                    @csrf
+                </form>
+                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" method="POST" action="/logout" style="display:none;">
+                    @csrf
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content -->

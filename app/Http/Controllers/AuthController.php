@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -60,12 +61,54 @@ class AuthController extends Controller
     // Logout
     public function logout(Request $request)
     {
+        // Logout dari aplikasi Laravel
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/login'); // Arahkan pengguna kembali ke halaman login
+    }
+
+    // Logout dari Google
+    public function logoutGoogle(Request $request)
+    {
+        // Logout dari aplikasi Laravel
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect ke Google untuk logout (opsional, hanya sesi lokal yang dibersihkan)
+        return redirect('/login')->with('success', 'Anda telah berhasil logout.');
+    }
+
+    // Redirect ke Google
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')
+            ->with(['prompt' => 'select_account']) // Memaksa memilih akun
+            ->redirect();
+    }
+
+    // Callback dari Google
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->stateless()->user();
+
+            // Cek apakah user sudah terdaftar
+            $user = User::firstOrCreate(
+                ['email' => $googleUser->getEmail()],
+                [
+                    'name' => $googleUser->getName(),
+                    'password' => bcrypt('defaultpassword'), // Bisa disesuaikan
+                ]
+            );
+
+            Auth::login($user);
+
+            return redirect('/Home'); // Redirect ke halaman setelah login
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors('Gagal login dengan Google.');
+        }
     }
 }
-
-
