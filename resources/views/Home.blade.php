@@ -244,7 +244,7 @@
                 <a href="/Histori" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card whatsapp">
-                <a href="https://wa.me/6281234567890" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; text-align: center; flex-direction: column;">
+                <a href="https://wa.me/62887435414960" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; text-align: center; flex-direction: column;">
                     <i class="fab fa-whatsapp"></i>
                     <div class="title">Contact Us</div>
                     <div class="number">WhatsApp</div>
