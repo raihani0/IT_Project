@@ -9,13 +9,12 @@ class Desa extends Model
 {
     use HasFactory;
 
-    protected $table = 'desas';
+    protected $table = 'desa';
 
-    protected $fillable = ['alamat'];
+    protected $fillable = ['nama_desa'];
 
-    // Relasi dengan penduduk
     public function penduduk()
     {
-        return $this->hasMany(Penduduk::class, 'alamat', 'alamat');
+        return $this->hasMany(Penduduk::class);
     }
 }

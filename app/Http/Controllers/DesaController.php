@@ -3,26 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desa;
+use Illuminate\Http\Request;
 
 class DesaController extends Controller
 {
-    // Menampilkan daftar desa
     public function index()
     {
-        $desas = Desa::all();  // Mendapatkan semua data desa
-        return view('desas.index', ['desas' => $desas]);  // Kirim data desa ke view
+        $desa = Desa::withCount('penduduk')->get();
+        return view('desa.index', compact('desa'));
     }
 
-    // Menampilkan data penduduk berdasarkan nama desa
-    public function show($nama_desa)
+    public function create()
     {
-        // Mengambil data desa yang memiliki nama desa yang diberikan dan termasuk penduduk
-        $desa = Desa::with('penduduk')->where('nama_desa', $nama_desa)->first();
+        return view('desa.create');
+    }
 
-        if (!$desa) {
-            return redirect()->back()->with('error', 'Desa tidak ditemukan.');
-        }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_desa' => 'required|unique:desa',
+        ]);
 
-        return view('desa.show', ['desa' => $desa]);
+        Desa::create($validated);
+        return redirect()->route('desa.index')->with('success', 'Data Desa Berhasil Ditambahkan');
+    }
+
+    public function show($id)
+    {
+        $desa = Desa::with('penduduk')->findOrFail($id);
+        return view('desa.show', compact('desa'));
+    }
+
+
+    public function edit(Desa $desa)
+    {
+        return view('desa.edit', compact('desa'));
+    }
+
+    public function update(Request $request, Desa $desa)
+    {
+        $validated = $request->validate([
+            'nama_desa' => 'required|unique:desa,nama_desa,' . $desa->id,
+        ]);
+
+        $desa->update($validated);
+        return redirect()->route('desa.index')->with('success', 'Data Desa Berhasil Diupdate');
+    }
+
+    public function destroy(Desa $desa)
+    {
+        $desa->delete();
+        return redirect()->route('desa.index')->with('success', 'Data Desa Berhasil Dihapus');
     }
 }
