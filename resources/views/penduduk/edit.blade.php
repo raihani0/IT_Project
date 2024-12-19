@@ -171,7 +171,7 @@
 
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="/penduduks" class="active">Penduduk</a>
+        <a href="/penduduk" class="active">Penduduk</a>
         <a href="/desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
@@ -180,11 +180,14 @@
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
+                    Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
@@ -202,72 +205,57 @@
     <div class="content">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-custom">
-                <li class="breadcrumb-item"><a href="/penduduks">Penduduk</a></li>
+                <li class="breadcrumb-item"><a href="/penduduk">Penduduk</a></li>
             </ol>
         </nav>
-        <div class="form-container">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h4>Edit Penduduk</h4>
-                        </div>
-                        <div class="col-md-3 text-end">
-                            <a href="{{ route('penduduks.index') }}" class="btn btn-primary">Kembali</a>
-                        </div>
-                    </div>
+        <div class="container">
+            <h1>Edit Data Penduduk</h1>
+            <form action="{{ route('penduduk.update', $penduduk->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $penduduk->nama }}"
+                        required>
                 </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('penduduks.update', $penduduk->id) }}">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="form-section">
-                            <label for="nama">Nama:</label>
-                            <input type="text" id="nama" name="nama" class="form-control" value="{{ $penduduk->nama }}" required>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="nik">NIK:</label>
-                            <input type="text" id="nik" name="nik" class="form-control" value="{{ $penduduk->nik }}" required>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="desa">Desa:</label>
-                            <input type="text" id="desa" name="desa" class="form-control" value="{{ $penduduk->desa }}" required>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="alamat">Alamat:</label>
-                            <textarea id="alamat" name="alamat" class="form-control" required>{{ $penduduk->alamat }}</textarea>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="jenis_bantuan">Jenis Bantuan:</label>
-                            <input type="text" id="jenis_bantuan" name="jenis_bantuan" class="form-control" value="{{ $penduduk->jenis_bantuan }}" required>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="nominal">Nominal:</label>
-                            <input type="number" id="nominal" name="nominal" class="form-control" value="{{ $penduduk->nominal }}" required>
-                        </div>
-
-                        <div class="form-section">
-                            <label for="status_bantuan">Status Bantuan:</label>
-                            <select id="status_bantuan" class="form-control" name="status_bantuan" required>
-                                <option value="1" {{ $penduduk->status_bantuan == 1 ? 'selected' : '' }}>Sudah Menerima</option>
-                                <option value="0" {{ $penduduk->status_bantuan == 0 ? 'selected' : '' }}>Belum Menerima</option>
-                            </select>
-                        </div>
-
-                        <div class="form-section">
-                            <button class="btn btn-success">Simpan</button>
-                        </div>
-                    </form>
+                <div class="mb-3">
+                    <label for="nik" class="form-label">NIK</label>
+                    <input type="text" class="form-control" id="nik" name="nik" value="{{ $penduduk->nik }}" required>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label for="desa_id" class="form-label">Desa</label>
+                    <select class="form-control" id="desa_id" name="desa_id" required>
+                        <option value="">Pilih Desa</option>
+                        @foreach ($desa as $d)
+                            <option value="{{ $d->id }}" {{ $penduduk->desa_id == $d->id ? 'selected' : '' }}>
+                                {{ $d->nama_desa }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <textarea class="form-control" id="alamat" name="alamat" required>{{ $penduduk->alamat }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="jenis_bantuan" class="form-label">Jenis Bantuan</label>
+                    <input type="text" class="form-control" id="jenis_bantuan" name="jenis_bantuan"
+                        value="{{ $penduduk->jenis_bantuan }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nominal" class="form-label">Nominal</label>
+                    <input type="number" class="form-control" id="nominal" name="nominal"
+                        value="{{ $penduduk->nominal }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="status_bantuan" class="form-label">Status Bantuan</label>
+                    <select class="form-control" id="status_bantuan" name="status_bantuan" required>
+                        <option value="Sudah Menerima" {{ $penduduk->status_bantuan == 'Sudah Menerima' ? 'selected' : '' }}>Sudah Menerima</option>
+                        <option value="Belum Menerima" {{ $penduduk->status_bantuan == 'Belum Menerima' ? 'selected' : '' }}>Belum Menerima</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
         </div>
     </div>
 </body>
-
 </html>

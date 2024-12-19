@@ -224,8 +224,8 @@
     </div>
     <div class="sidebar">
         <a href="/Home" class="active">Dashboard</a>
-        <a href="/penduduks">Penduduk</a>
-        <a href="/Desa">Desa</a>
+        <a href="/penduduk">Penduduk</a>
+        <a href="/desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
