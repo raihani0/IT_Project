@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Bantuan</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>SIM PENDUDUK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -15,17 +16,16 @@
             overflow-x: hidden;
         }
 
-        /* Header Styling */
         .header {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
             z-index: 1000;
         }
 
@@ -35,34 +35,32 @@
             font-weight: bold;
         }
 
-        .user-info {
+        .header .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding-right: 18px;
         }
 
-        .user-info i {
-            font-size: 16px;
+        .header .user-info i {
+            margin-right: 10px;
+        }
+
+        .header .user-info span {
+            font-size: 18px;
             color: white;
         }
 
-        .user-info span {
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-        }
-
-        /* Sidebar Styling */
         .sidebar {
+            width: 200px;
             background-color: #31363F;
             color: white;
-            width: 200px;
             position: fixed;
             top: 50px;
-            left: 0;
+            /* Beri jarak dari header */
             bottom: 0;
             padding-top: 20px;
-            overflow-y: auto;
+            /* Jarak di dalam sidebar */
+            font-size: 16px;
         }
 
         .sidebar a {
@@ -72,19 +70,20 @@
             display: block;
         }
 
-        .sidebar a:hover, .sidebar a.active {
+        .sidebar a:hover {
             background-color: #575757;
         }
 
         .sidebar a.active {
+            background-color: #575757;
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
         }
 
-        /* Main Content Styling */
-        .container {
+        .main-content {
             margin-left: 220px;
             padding-top: 70px;
+            /* Adjusted for header height */
             padding-bottom: 50px;
             max-width: calc(100% - 240px);
         }
@@ -106,14 +105,25 @@
             text-decoration: underline;
         }
 
-        .page-title {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
+        .button-item {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        .button-item:hover {
+            background-color: #45a049;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -142,6 +152,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -156,79 +167,50 @@
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
         <a href="/penduduk">Penduduk</a>
-        <a href="/desa">Desa</a>
-        <a href="/bantuans" class="active">Bantuan</a>
+        <a href="/desa" class="active">Desa</a>
+        <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
+                    Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5">
+    <div class="main-content">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="/desa">Desa</a>
         </div>
 
-        <!-- Page Title -->
-        <div class="page-title">
-            Detail Bantuan
-        </div>
-
-        <!-- Bantuan Details -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <h3 class="mb-3">{{ $bantuan->title }}</h3>
-                        <hr/>
-                        <div class="mb-3">
-                            <strong>Status:</strong>
-                            <span class="badge bg-{{ $bantuan->status ? 'success' : 'danger' }}">
-                                {{ $bantuan->status ? 'Aktif' : 'Tidak Aktif' }}
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Deskripsi Bantuan:</strong>
-                            <p>{{ $bantuan->description }}</p>
-                        </div>
-                        <div class="mt-4">
-                            <a href="{{ route('bantuans.index') }}" class="btn btn-secondary">Kembali</a>
-                            <a href="{{ route('bantuans.edit', $bantuan->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('bantuans.destroy', $bantuan->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bantuan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
+        <div class="container">
+            <h1>Tambah Data Desa</h1>
+            <form action="{{ route('desa.store') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="nama_desa" class="form-label">Nama Desa</label>
+                    <input type="text" class="form-control" id="nama_desa" name="nama_desa" required>
                 </div>
-            </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </form>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

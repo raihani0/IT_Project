@@ -105,8 +105,9 @@
             font-size: 14px;
             padding: 5px 10px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        /* Dropdown Styles */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -147,8 +148,8 @@
 
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="/penduduks" class="active">Penduduk</a>
-        <a href="/Desa">Desa</a>
+        <a href="/penduduk" class="active">Penduduk</a>
+        <a href="/desa">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
@@ -156,11 +157,14 @@
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
+                    Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
@@ -184,62 +188,64 @@
 
     <div class="content">
         <div class="breadcrumb">
-            <a href="/penduduks">Penduduk</a>
+            <a href="/penduduk">Penduduk</a>
         </div>
         <div class="page-title">
             Data Penduduk
         </div>
         <div class="card">
             <div class="card-body">
-                <!-- Tombol Tambah Penduduk -->
-                <a href="{{ route('penduduks.create') }}" class="btn btn-md btn-success mb-3">TAMBAH PENDUDUK</a>
-
-                <!-- Tabel Data Penduduk -->
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">NIK</th>
-                            <th scope="col">Desa</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Jenis Bantuan</th>
-                            <th scope="col">Nominal</th>
-                            <th scope="col">Status Bantuan</th>
-                            <th scope="col" style="width: 20%">Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($penduduks as $penduduk)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $penduduk->nama }}</td>
-                            <td>{{ $penduduk->nik }}</td>
-                            <td>{{ $penduduk->desa }}</td>
-                            <td>{{ $penduduk->alamat }}</td>
-                            <td>{{ $penduduk->jenis_bantuan }}</td>
-                            <td>{{ $penduduk->nominal }}</td>
-                            <td>
-                                @if($penduduk->status_bantuan == 1)
-                                <span class="badge bg-success badge-status">Sudah Menerima</span>
-                                @else
-                                <span class="badge bg-danger badge-status">Belum Menerima</span>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                <form onsubmit="confirmDelete(event)" action="{{ route('penduduks.destroy', $penduduk->id) }}" method="POST">
-                                    <a href="{{ route('penduduks.show', $penduduk->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                    <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{ $penduduks->links() }}
+                <div class="container">
+                    <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success mb-3">Tambah Penduduk</a>
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>NIK</th>
+                                <th>Desa</th>
+                                <th>Alamat</th>
+                                <th>Jenis Bantuan</th>
+                                <th>Nominal</th>
+                                <th>Status Bantuan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($penduduk as $item)
+                                <tr>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->nik }}</td>
+                                    <td>{{ $item->desa->nama_desa }}</td>
+                                    <td>{{ $item->alamat }}</td>
+                                    <td>{{ $item->jenis_bantuan }}</td>
+                                    <td>{{ number_format($item->nominal, 2) }}</td>
+                                    <td>
+                                        @if($item->status_bantuan == 'Sudah Menerima')
+                                            <span class="badge bg-success badge-status">{{ $item->status_bantuan }}</span>
+                                        @else
+                                            <span class="badge bg-danger badge-status">{{ $item->status_bantuan }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('penduduk.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                        <a href="{{ route('penduduk.edit', $item->id) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('penduduk.destroy', $item->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Yakin Hapus?')">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

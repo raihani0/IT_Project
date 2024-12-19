@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Penduduk</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>SIM PENDUDUK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -15,17 +16,16 @@
             overflow-x: hidden;
         }
 
-        /* Header Styling */
         .header {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
             z-index: 1000;
         }
 
@@ -35,34 +35,32 @@
             font-weight: bold;
         }
 
-        .user-info {
+        .header .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding-right: 18px;
         }
 
-        .user-info i {
-            font-size: 16px;
+        .header .user-info i {
+            margin-right: 10px;
+        }
+
+        .header .user-info span {
+            font-size: 18px;
             color: white;
         }
 
-        .user-info span {
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-        }
-
-        /* Sidebar Styling */
         .sidebar {
+            width: 200px;
             background-color: #31363F;
             color: white;
-            width: 200px;
             position: fixed;
             top: 50px;
-            left: 0;
+            /* Beri jarak dari header */
             bottom: 0;
             padding-top: 20px;
-            overflow-y: auto;
+            /* Jarak di dalam sidebar */
+            font-size: 16px;
         }
 
         .sidebar a {
@@ -72,19 +70,20 @@
             display: block;
         }
 
-        .sidebar a:hover, .sidebar a.active {
+        .sidebar a:hover {
             background-color: #575757;
         }
 
         .sidebar a.active {
+            background-color: #575757;
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
         }
 
-        /* Main Content Styling */
-        .container {
+        .main-content {
             margin-left: 220px;
             padding-top: 70px;
+            /* Adjusted for header height */
             padding-bottom: 50px;
             max-width: calc(100% - 240px);
         }
@@ -113,20 +112,23 @@
             margin-bottom: 20px;
         }
 
-        /* Card Styling */
-        .card-body h3 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .card-body .mb-3 {
+        .button-item {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: none;
+            width: 100%;
+            text-align: left;
             font-size: 16px;
+            cursor: pointer;
         }
 
-        .card-body .badge {
-            font-size: 14px;
+        .button-item:hover {
+            background-color: #45a049;
         }
-        
+
         /* Dropdown Styles */
         .dropdown {
             position: relative;
@@ -157,6 +159,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -170,8 +173,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
-        <a href="/penduduks" class="active">Penduduk</a>
-        <a href="/desa">Desa</a>
+        <a href="/penduduk">Penduduk</a>
+        <a href="/desa" class="active">Desa</a>
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
@@ -179,85 +182,70 @@
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
+                    Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5">
-        <!-- Breadcrumb -->
+    <div class="main-content">
         <div class="breadcrumb-custom">
-            <a href="/penduduks">Penduduk</a>
+            <a href="/desa">Desa</a>
         </div>
-
-        <!-- Page Title -->
         <div class="page-title">
-            Detail Penduduk
+            Data Desa
         </div>
 
-        <!-- Penduduk Details -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <h3 class="mb-3">{{ $penduduk->nama }}</h3>
-                        <hr/>
-                        <div class="mb-3">
-                            <strong>ID:</strong> {{ $penduduk->id }}
-                        </div>
-                        <div class="mb-3">
-                            <strong>NIK:</strong> {{ $penduduk->nik }}
-                        </div>
-                        <div class="mb-3">
-                            <strong>Desa:</strong> {{ $penduduk->desa }}
-                        </div>
-                        <div class="mb-3">
-                            <strong>Alamat:</strong> {{ $penduduk->alamat }}
-                        </div>
-                        <div class="mb-3">
-                            <strong>Jenis Bantuan:</strong> {{ $penduduk->jenis_bantuan }}
-                        </div>
-                        <div class="mb-3">
-                            <strong>Nominal Bantuan:</strong> {{ $penduduk->nominal }}
-                        </div>
-                        <div class="mb-3">
-                            <strong>Status Bantuan:</strong> 
-                            <span class="badge bg-{{ $penduduk->status_bantuan ? 'success' : 'danger' }}">
-                                {{ $penduduk->status_bantuan ? 'Sudah Menerima' : 'Belum Menerima' }}
-                            </span>
-                        </div>
-                        <div class="mt-4">
-                            <a href="{{ route('penduduks.index') }}" class="btn btn-secondary">Kembali</a>
-                            <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('penduduks.destroy', $penduduk->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penduduk ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <a href="{{ route('desa.create') }}" class="btn btn-md btn-success mb-3">Tambah Desa</a>
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nama Desa</th>
+                                <th>Jumlah Penduduk</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($desa as $d)
+                                <tr>
+                                    <td>{{ $d->nama_desa }}</td>
+                                    <td>{{ $d->penduduk_count }}</td>
+                                    <td>
+                                        <a href="{{ route('desa.show', $d->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                        <a href="{{ route('desa.edit', $d->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('desa.destroy', $d->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Yakin Hapus?')">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

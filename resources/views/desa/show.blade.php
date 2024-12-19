@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Bantuan</title>
+    <title>Detail Penduduk</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -15,6 +16,7 @@
             overflow-x: hidden;
         }
 
+        /* Header Styling */
         .header {
             background-color: #4CAF50;
             color: white;
@@ -34,6 +36,24 @@
             font-weight: bold;
         }
 
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info i {
+            font-size: 16px;
+            color: white;
+        }
+
+        .user-info span {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Sidebar Styling */
         .sidebar {
             background-color: #31363F;
             color: white;
@@ -53,14 +73,17 @@
             display: block;
         }
 
-        .sidebar a:hover, .sidebar a.active{
+        .sidebar a:hover,
+        .sidebar a.active {
             background-color: #575757;
         }
+
         .sidebar a.active {
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
         }
 
+        /* Main Content Styling */
         .container {
             margin-left: 220px;
             padding-top: 70px;
@@ -91,8 +114,23 @@
             text-align: center;
             margin-bottom: 20px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        /* Card Styling */
+        .card-body h3 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .card-body .mb-3 {
+            font-size: 16px;
+        }
+
+        .card-body .badge {
+            font-size: 14px;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -121,6 +159,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -135,19 +174,22 @@
     <div class="sidebar">
         <a href="/Home">Dashboard</a>
         <a href="/penduduk">Penduduk</a>
-        <a href="/desa">Desa</a>
-        <a href="/bantuans" class="active">Bantuan</a>
+        <a href="/desa" class="active">Desa</a>
+        <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
+                    Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
@@ -164,61 +206,33 @@
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="/desa">Desa</a>
         </div>
 
         <!-- Page Title -->
         <div class="page-title">
-            Edit Bantuan
+            Detail Desa
         </div>
 
-        <!-- Form -->
+        <!-- Desa Details -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('bantuans.update', $bantuan->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-
-                            <!-- Judul -->
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">NAMA BANTUAN</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $bantuan->title) }}" placeholder="Masukkan Judul Bantuan">
-                                @error('title')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <!-- Deskripsi -->
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">DESKRIPSI BANTUAN</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Bantuan">{{ old('description', $bantuan->description) }}</textarea>
-                                @error('description')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <!-- Status -->
-                            <div class="form-group mb-3">
-                                <label for="status">STATUS</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="1" {{ old('status', $bantuan->status ?? '') == 1 ? 'selected' : '' }}>Aktif</option>
-                                    <option value="0" {{ old('status', $bantuan->status ?? '') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                                </select>
-                            </div>
-
-                            <!-- Tombol Submit -->
-                            <button type="submit" class="btn btn-md btn-primary me-3">UPDATE</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-                        </form> 
+                        <h5 class="card-title">Nama Desa: {{ $desa->nama_desa }}</h5>
+                        <p class="card-text">
+                            <strong>Jumlah Penduduk:</strong> {{ $desa->penduduk_count }}
+                        </p>
+                        <h6>Daftar Penduduk:</h6>
+                        <ul>
+                            @foreach ($desa->penduduk as $penduduk)
+                                <li>{{ $penduduk->nama }} (NIK: {{ $penduduk->nik }})</li>
+                            @endforeach
+                        </ul>
+                        <a href="{{ route('desa.index') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -227,9 +241,6 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.25.0/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
 </body>
+
 </html>
