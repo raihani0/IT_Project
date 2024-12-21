@@ -153,36 +153,6 @@
             text-decoration: underline;
         }
 
-        .card.whatsapp {
-            background-color: #25D366;
-            color: white;
-        }
-
-        .card.whatsapp i {
-            color: white;
-            margin-top: 10px;
-        }
-
-        .card.whatsapp .info .title {
-            font-size: 18px;
-        }
-
-        .card.whatsapp .info .number {
-            font-size: 18px;
-            color: white;
-        }
-
-        .card.whatsapp:hover {
-            background-color: #128C7E;
-        }
-
-        .caption {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #333;
-        }
-
         /* Dropdown Styles */
         .dropdown {
             position: relative;
@@ -258,7 +228,7 @@
         </div>
         <div class="main-title">Sistem Informasi Pendataan Masyarakat Miskin di Kecamatan Batu Ampar</div>
         <div class="cards">
-            <div class="card blue">
+            <div class="card green">
                 <i class="fas fa-map-marker-alt"></i>
                 <div class="info">
                     <div class="title">Desa</div>
@@ -266,7 +236,7 @@
                     <a href="/Desa" class="detail-link">Lihat Detail ></a>
                 </div>
             </div>
-            <div class="card green">
+            <div class="card blue">
                 <i class="fas fa-users"></i>
                 <div class="info">
                     <div class="title">Warga</div>
@@ -274,7 +244,7 @@
                 </div>
                 <a href="/penduduks" class="detail-link">Lihat Detail ></a>
             </div>
-            <div class="card blue">
+            <div class="card green">
                 <i class="fas fa-hand-holding-usd"></i>
                 <div class="info">
                     <div class="title">Bantuan</div>
@@ -282,7 +252,7 @@
                 </div>
                 <a href="/bantuans" class="detail-link">Lihat Detail ></a>
             </div>
-            <div class="card green">
+            <div class="card blue">
                 <i class="fas fa-clipboard-check"></i>
                 <div class="info">
                     <div class="title">Status Penerima</div>
@@ -290,14 +260,15 @@
                 </div>
                 <a href="/Histori" class="detail-link">Lihat Detail ></a>
             </div>
-            <div class="card whatsapp">
-                <i class="fab fa-whatsapp"></i>
+            <div class="card green">
+                 <i class="fab fa-whatsapp"></i>
                 <div class="info">
-                    <div class="title">WhatsApp</div>
+                    <div class="title">Whatsapp</div>
                 </div>
-                <a href="/send-message" class="detail-link" target="_blank">Lihat Detail ></a>
+                <a href="/send-message" class="detail-link">Lihat Detail ></a>
             </div>
         </div>
     </div>
 </body>
+
 </html>
