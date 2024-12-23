@@ -223,7 +223,19 @@
                 </div>
                 <div class="form-section">
                     <label for="jenis_bantuan" class="form-label">Jenis Bantuan</label>
-                    <input type="text" class="form-control" id="jenis_bantuan" name="jenis_bantuan" required>
+                    <select class="form-control" id="jenis_bantuan" name="jenis_bantuan" required>
+                    <option value="">Pilih Jenis Bantuan</option>
+                        <option value="BLT">BLT</option>
+                        <option value="BST">BST</option>
+                        <option value="BSU">BSU</option>
+                        <option value="BPNT">BPNT</option>
+                        <option value="BPUM">BPUM</option>
+                        <option value="PKH">PKH</option>
+                        <option value="RTLH">RTLH</option>
+                        <option value="Kartu Indonesia Sehat">Kartu Indonesia Sehat</option>
+                        <option value="Kartu Indonesia Pintar">Kartu Indonesia Pintar</option>
+                        <option value="Bantuan Pangan untuk Lansia dan Disabilitas">Bantuan Pangan untuk Lansia dan Disabilitas</option>
+                    </select>
                 </div>
                 <div class="form-section">
                     <label for="nominal" class="form-label">Nominal</label>
