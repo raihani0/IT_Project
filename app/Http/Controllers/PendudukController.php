@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Penduduk;
 use App\Models\Desa;
 use App\Models\History;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -100,5 +101,19 @@ class PendudukController extends Controller
         $penduduk->delete();
 
         return redirect()->route('penduduk.index')->with('success', 'Data Penduduk Berhasil Dihapus');
+    }
+
+    public function pdf_generator_get(Request $request)
+    {
+        $penduduk = Penduduk::get();
+
+        $data = [
+            'title' => 'Data Masyarakat Miskin Di Kecamatan Batu-Ampar',
+            'date' => date('d/m/Y'),
+            'penduduk' => $penduduk,
+        ];
+
+        $pdf = PDF::loadview('myPDF', $data);
+        return $pdf->download('Data Masyarakat Miskin.pdf');
     }
 }

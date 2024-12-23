@@ -200,6 +200,10 @@
                     @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
+                    <br>
+                    <a href="{{ url('pdf_generator') }}" class="btn btn-primary"> Download PDF </a>
+                    <br><br>
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>
