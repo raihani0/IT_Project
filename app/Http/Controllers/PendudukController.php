@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Penduduk;
 use App\Models\Desa;
+use App\Models\History;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PendudukController extends Controller
 {
@@ -32,7 +35,17 @@ class PendudukController extends Controller
             'status_bantuan' => 'required',
         ]);
 
-        Penduduk::create($validated);
+        $penduduk = Penduduk::create($validated);
+
+        // Mencatat aksi penambahan penduduk ke tabel history
+        History::create([
+            'id_user' => Auth::id(),
+            'name' => Auth::user()->name,
+            'status' => "Menambahkan penduduk: {$penduduk->nama}",
+            'timestamp' => now(),
+            'role' => Auth::user()->role,
+        ]);
+
         return redirect()->route('penduduk.index')->with('success', 'Data Penduduk Berhasil Ditambahkan');
     }
 
@@ -41,7 +54,6 @@ class PendudukController extends Controller
         $penduduk = Penduduk::with('desa')->findOrFail($id);
         return view('penduduk.show', compact('penduduk'));
     }
-
 
     public function edit(Penduduk $penduduk)
     {
@@ -62,12 +74,46 @@ class PendudukController extends Controller
         ]);
 
         $penduduk->update($validated);
+
+        // Mencatat aksi perubahan penduduk ke tabel history
+        History::create([
+            'id_user' => Auth::id(),
+            'name' => Auth::user()->name,
+            'status' => "Mengubah penduduk: {$penduduk->nama}",
+            'timestamp' => now(),
+            'role' => Auth::user()->role,
+        ]);
+
         return redirect()->route('penduduk.index')->with('success', 'Data Penduduk Berhasil Diupdate');
     }
 
     public function destroy(Penduduk $penduduk)
     {
+        // Mencatat aksi penghapusan penduduk ke tabel history
+        History::create([
+            'id_user' => Auth::id(),
+            'name' => Auth::user()->name,
+            'status' => "Menghapus penduduk: {$penduduk->nama}",
+            'timestamp' => now(),
+            'role' => Auth::user()->role,
+        ]);
+
         $penduduk->delete();
+
         return redirect()->route('penduduk.index')->with('success', 'Data Penduduk Berhasil Dihapus');
+    }
+
+    public function pdf_generator_get(Request $request)
+    {
+        $penduduk = Penduduk::get();
+
+        $data = [
+            'title' => 'Data Masyarakat Miskin Di Kecamatan Batu-Ampar',
+            'date' => date('d/m/Y'),
+            'penduduk' => $penduduk,
+        ];
+
+        $pdf = PDF::loadview('myPDF', $data);
+        return $pdf->download('Data Masyarakat Miskin.pdf');
     }
 }
