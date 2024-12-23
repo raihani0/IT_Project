@@ -106,6 +106,12 @@
             padding: 5px 10px;
         }
 
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         /* Dropdown Styles */
         .dropdown {
             position: relative;
@@ -142,7 +148,7 @@
         <div class="title">SIM PENDUDUK</div>
         <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+            <span>{{ Auth::user()->name }}</span>
         </div>
     </div>
 
@@ -153,7 +159,6 @@
         <a href="/bantuans">Bantuan</a>
         <a href="/Dokumentasi">Dokumentasi</a>
         <a href="/histori">Histori</a>
-        <!-- Dropdown for Logout -->
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
@@ -170,39 +175,25 @@
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-
-            function confirmDelete(event) {
-                if (!confirm("Apakah Anda yakin ingin menghapus data penduduk ini?")) {
-                    event.preventDefault(); // Mencegah form dikirimkan jika tidak yakin
-                }
-            }
-        </script>
     </div>
 
     <div class="content">
         <div class="breadcrumb">
             <a href="/penduduk">Penduduk</a>
         </div>
-        <div class="page-title">
-            Data Penduduk
-        </div>
+        <div class="page-title">Data Penduduk</div>
+
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success mb-3">Tambah Penduduk</a>
+                    <div class="btn-container">
+                        <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success">Tambah Penduduk</a>
+                        <a href="{{ url('pdf_generator') }}" class="btn btn-primary">Download PDF</a>
+                    </div>
+
                     @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
-                    <br>
-                    <a href="{{ url('pdf_generator') }}" class="btn btn-primary"> Download PDF </a>
-                    <br><br>
 
                     <table class="table table-bordered">
                         <thead>
@@ -235,14 +226,11 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('penduduk.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                        <a href="{{ route('penduduk.edit', $item->id) }}"
-                                            class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('penduduk.destroy', $item->id) }}" method="POST"
-                                            class="d-inline">
+                                        <a href="{{ route('penduduk.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('penduduk.destroy', $item->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Yakin Hapus?')">Hapus</button>
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin Hapus?')">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
