@@ -10,7 +10,7 @@ class CreateHistoriesTable extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');  // ID pengguna
+            $table->unsignedBigInteger('id_user');   // ID pengguna
             $table->string('name');                 // Nama pengguna
             $table->string('status');               // Status aksi
             $table->timestamp('timestamp');         // Waktu aksi

@@ -8,10 +8,11 @@ use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FonnteController;
 use App\Http\Controllers\WhatsAppController;
+use App\Http\Controllers\DokumentasiController;
 
 // Route untuk halaman awal
 Route::get('/', function () {
-    return view('homepage' );
+    return view('homepage');
 });
 
 Route::get('/homepage', function () {
@@ -66,3 +67,8 @@ Route::get('/send-message', [FonnteController::class, 'showForm']);
 
 // Rute untuk memproses pengiriman pesan
 Route::post('/send-message', [FonnteController::class, 'sendMessage']);
+
+
+
+// Menampilkan daftar dokumentasi
+Route::resource('dokumentasi', DokumentasiController::class);
