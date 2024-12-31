@@ -7,6 +7,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FonnteController;
+use App\Http\Controllers\WhatsAppController;
 
 // Route untuk halaman awal
 Route::get('/', function () {
@@ -38,6 +39,8 @@ Route::get('/Home', function () {
 
 //Route untuk penduduk
 Route::resource('penduduk', PendudukController::class);
+Route::get('pdf_generator', [PendudukController::class, 'pdf_generator_get']);
+
 Route::resource('desa', DesaController::class);
 
 // Route untuk Dokumentasi
@@ -52,3 +55,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/histori', [HistoryController::class, 'index'])->name('histori.index');
+
+// Rute untuk menampilkan form
+Route::get('/send-message', [FonnteController::class, 'showForm']);
+
+// Rute untuk memproses pengiriman pesan
+Route::post('/send-message', [FonnteController::class, 'sendMessage']);

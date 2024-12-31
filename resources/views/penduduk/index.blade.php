@@ -106,6 +106,12 @@
             padding: 5px 10px;
         }
 
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         /* Dropdown Styles */
         .dropdown {
             position: relative;
@@ -142,7 +148,7 @@
         <div class="title">SIM PENDUDUK</div>
         <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+            <span>{{ Auth::user()->name }}</span>
         </div>
     </div>
 
@@ -170,36 +176,26 @@
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-
-            function confirmDelete(event) {
-                if (!confirm("Apakah Anda yakin ingin menghapus data penduduk ini?")) {
-                    event.preventDefault(); // Mencegah form dikirimkan jika tidak yakin
-                }
-            }
-        </script>
     </div>
 
     <div class="content">
         <div class="breadcrumb">
             <a href="/penduduk">Penduduk</a>
         </div>
-        <div class="page-title">
-            Data Penduduk
-        </div>
+        <div class="page-title">Data Penduduk</div>
+
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success mb-3"> <i class="fas fa-plus"></i> Tambah Penduduk</a>
+                    <div class="btn-container">
+                        <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success"><i class="fas fa-plus"></i> Tambah Penduduk</a>
+                        <a href="{{ url('pdf_generator') }}" class="btn btn-primary"><i class="fas fa-print"></i> Download PDF</a>
+                    </div>
+
                     @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>

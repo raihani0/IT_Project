@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIM PENDUDUK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
             margin: 0;
@@ -14,7 +17,7 @@
         .header {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 7px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -54,7 +57,7 @@
         .sidebar a {
             display: block;
             color: white;
-            padding: 10px 15px;
+            padding: 7px 15px;
             text-decoration: none;
         }
 
@@ -73,84 +76,28 @@
             padding: 90px 30px 30px 30px;
         }
 
-        .breadcrumb {
+        .breadcrumb-custom {
             background-color: white;
-            padding: 11px 15px;
+            padding: 10px 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             font-size: 14px;
         }
 
-        .breadcrumb a {
+        .breadcrumb-custom a {
+            text-decoration: none;
             color: #0d6efd;
-            text-decoration: none;
         }
 
-        .breadcrumb a:hover {
+        .breadcrumb-custom a:hover {
             text-decoration: underline;
         }
 
-        .main-title {
+        .page-title {
             font-size: 22px;
+            font-weight: bold;
+            text-align: center;
             margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-            margin: 10px;
-            width: 200px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .card i {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .card.blue i {
-            color: #007bff;
-        }
-
-        .card.green i {
-            color: #28a745;
-        }
-
-        .card .info .title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .card .info .number {
-            font-size: 24px;
-            color: #333;
-        }
-
-        .detail-link {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .detail-link:hover {
-            text-decoration: underline;
         }
 
         /* Dropdown Styles */
@@ -181,6 +128,40 @@
         .dropdown-content a:hover {
             background-color: #575757;
         }
+
+        .container h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        /* Kotak Formulir */
+        .form-container {
+            background-color: #fff; /* Warna latar */
+            border: 1px solid #ccc; /* Garis tepi */
+            border-radius: 8px; /* Lengkung sudut */
+            padding: 20px; /* Ruang dalam kotak */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+        }
     </style>
 </head>
 
@@ -193,15 +174,15 @@
         </div>
     </div>
     <div class="sidebar">
-        <a href="/Home" class="active"> <i class="fas fa-home"></i> Dashboard</a>
-        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
-        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
-        <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/Dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
-        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
+        <a href="/Home" class="active">Dashboard</a>
+        <a href="/penduduks">Penduduk</a>
+        <a href="/Desa">Desa</a>
+        <a href="/bantuans">Bantuan</a>
+        <a href="/Dokumentasi">Dokumentasi</a>
+        <a href="/histori">Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i>  Logout :</a>
+            <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
@@ -223,52 +204,49 @@
         </script>
     </div>
     <div class="content">
-        <div class="breadcrumb">
-            <a href="/Home">Dashboard</a>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-custom">
+            <a href="/home">Kirim Pesan</a>
         </div>
-        <div class="main-title">Sistem Informasi Pendataan Masyarakat Miskin di Kecamatan Batu Ampar</div>
-        <div class="cards">
-            <div class="card green">
-                <i class="fas fa-map-marker-alt"></i>
-                <div class="info">
-                    <div class="title">Desa</div>
-                    <div class="number">14</div>
-                    <a href="/Desa" class="detail-link">Lihat Detail ></a>
-                </div>
+        <div class="container">
+            <h2>Kirim Pesan Kepada Admin</h2>
+
+            <!-- Menampilkan pesan sukses atau error -->
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="card blue">
-                <i class="fas fa-users"></i>
-                <div class="info">
-                    <div class="title">Warga</div>
-                    <div class="number">200</div>
-                </div>
-                <a href="/penduduks" class="detail-link">Lihat Detail ></a>
+            @endif
+
+            @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="card green">
-                <i class="fas fa-hand-holding-usd"></i>
-                <div class="info">
-                    <div class="title">Bantuan</div>
-                    <div class="number">50</div>
-                </div>
-                <a href="/bantuans" class="detail-link">Lihat Detail ></a>
-            </div>
-            <div class="card blue">
-                <i class="fas fa-clipboard-check"></i>
-                <div class="info">
-                    <div class="title">Status Penerima</div>
-                    <div class="number">55</div>
-                </div>
-                <a href="/Histori" class="detail-link">Lihat Detail ></a>
-            </div>
-            <div class="card green">
-                 <i class="fab fa-whatsapp"></i>
-                <div class="info">
-                    <div class="title">Whatsapp</div>
-                </div>
-                <a href="/send-message" class="detail-link">Lihat Detail ></a>
+            @endif
+
+            <!-- Kotak Formulir -->
+            <div class="form-container">
+                <form action="{{ url('/send-message') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Pesan</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">URL File (Opsional)</label>
+                        <input type="url" class="form-control" id="file" name="file" placeholder="Masukkan URL file (jika ada)">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Kirim Pesan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

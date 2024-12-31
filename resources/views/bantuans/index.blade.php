@@ -182,7 +182,7 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('bantuans.create') }}" class="btn btn-md btn-success mb-3"> <i class="fas fa-plus"></i> Tambah Desa</a>
+                        <a href="{{ route('bantuans.create') }}" class="btn btn-md btn-success mb-3"> <i class="fas fa-plus"></i> Tambah Bantuan</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

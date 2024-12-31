@@ -80,6 +80,13 @@
             padding-left: 16px;
         }
 
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .main-content {
             margin-left: 220px;
             padding-top: 70px;
@@ -169,11 +176,11 @@
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
         <a href="/desa" class="active"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/Dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/Dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i>  Logout :</a>
+            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i> Logout :</a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
@@ -197,18 +204,29 @@
             <a href="/desa">Desa</a>
         </div>
 
+        <div class="page-title">
+            Edit Desa
+        </div>
+
         <div class="container">
-            <h1>Edit Data Desa</h1>
-            <form action="{{ route('desa.update', $desa->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="mb-3">
-                    <label for="nama_desa" class="form-label">Nama Desa</label>
-                    <input type="text" class="form-control" id="nama_desa" name="nama_desa"
-                        value="{{ $desa->nama_desa }}" required>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow-sm rounded">
+                        <div class="card-body">
+                            <form action="{{ route('desa.update', $desa->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    <label for="nama_desa" class="form-label">Nama Desa</label>
+                                    <input type="text" class="form-control" id="nama_desa" name="nama_desa"
+                                        value="{{ $desa->nama_desa }}" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-            </form>
+            </div>
         </div>
     </div>
 

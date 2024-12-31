@@ -174,7 +174,7 @@
         <a href="/penduduk" class="active"> <i class="fas fa-users"></i> Penduduk</a>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/Dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/Dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
@@ -208,54 +208,82 @@
                 <li class="breadcrumb-item"><a href="/penduduk">Penduduk</a></li>
             </ol>
         </nav>
+        <div class="page-title">
+            Edit Data Penduduk
+        </div>
         <div class="container">
-            <h1>Edit Data Penduduk</h1>
-            <form action="{{ route('penduduk.update', $penduduk->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $penduduk->nama }}"
-                        required>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow-sm rounded">
+                        <div class="card-body">
+                            <form action="{{ route('penduduk.update', $penduduk->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    <label for="nama" class="form-label">Nama</label>
+                                    <input type="text" class="form-control" id="nama" name="nama"
+                                        value="{{ $penduduk->nama }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nik" class="form-label">NIK</label>
+                                    <input type="text" class="form-control" id="nik" name="nik"
+                                        value="{{ $penduduk->nik }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="desa_id" class="form-label">Desa</label>
+                                    <select class="form-control" id="desa_id" name="desa_id" required>
+                                        <option value="">Pilih Desa</option>
+                                        @foreach ($desa as $d)
+                                            <option value="{{ $d->id }}" {{ $penduduk->desa_id == $d->id ? 'selected' : '' }}>
+                                                {{ $d->nama_desa }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="alamat" class="form-label">Alamat</label>
+                                    <textarea class="form-control" id="alamat" name="alamat"
+                                        required>{{ $penduduk->alamat }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="jenis_bantuan" class="form-label">Jenis Bantuan</label>
+                                    <select class="form-control" id="jenis_bantuan" name="jenis_bantuan" required>
+                                        <option value="">Pilih Jenis Bantuan</option>
+                                        <option value="BLT">BLT</option>
+                                        <option value="BST">BST</option>
+                                        <option value="BSU">BSU</option>
+                                        <option value="BPNT">BPNT</option>
+                                        <option value="BPUM">BPUM</option>
+                                        <option value="PKH">PKH</option>
+                                        <option value="RTLH">RTLH</option>
+                                        <option value="Kartu Indonesia Sehat">Kartu Indonesia Sehat</option>
+                                        <option value="Kartu Indonesia Pintar">Kartu Indonesia Pintar</option>
+                                        <option value="Bantuan Pangan untuk Lansia dan Disabilitas">Bantuan Pangan untuk
+                                            Lansia dan
+                                            Disabilitas</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="nominal" class="form-label">Nominal</label>
+                                    <input type="number" class="form-control" id="nominal" name="nominal"
+                                        value="{{ $penduduk->nominal }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status_bantuan" class="form-label">Status Bantuan</label>
+                                    <select class="form-control" id="status_bantuan" name="status_bantuan" required>
+                                        <option value="Sudah Menerima" {{ $penduduk->status_bantuan == 'Sudah Menerima' ? 'selected' : '' }}>Sudah Menerima</option>
+                                        <option value="Belum Menerima" {{ $penduduk->status_bantuan == 'Belum Menerima' ? 'selected' : '' }}>Belum Menerima</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="nik" class="form-label">NIK</label>
-                    <input type="text" class="form-control" id="nik" name="nik" value="{{ $penduduk->nik }}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="desa_id" class="form-label">Desa</label>
-                    <select class="form-control" id="desa_id" name="desa_id" required>
-                        <option value="">Pilih Desa</option>
-                        @foreach ($desa as $d)
-                            <option value="{{ $d->id }}" {{ $penduduk->desa_id == $d->id ? 'selected' : '' }}>
-                                {{ $d->nama_desa }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="alamat" class="form-label">Alamat</label>
-                    <textarea class="form-control" id="alamat" name="alamat" required>{{ $penduduk->alamat }}</textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="jenis_bantuan" class="form-label">Jenis Bantuan</label>
-                    <input type="text" class="form-control" id="jenis_bantuan" name="jenis_bantuan"
-                        value="{{ $penduduk->jenis_bantuan }}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="nominal" class="form-label">Nominal</label>
-                    <input type="number" class="form-control" id="nominal" name="nominal"
-                        value="{{ $penduduk->nominal }}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="status_bantuan" class="form-label">Status Bantuan</label>
-                    <select class="form-control" id="status_bantuan" name="status_bantuan" required>
-                        <option value="Sudah Menerima" {{ $penduduk->status_bantuan == 'Sudah Menerima' ? 'selected' : '' }}>Sudah Menerima</option>
-                        <option value="Belum Menerima" {{ $penduduk->status_bantuan == 'Belum Menerima' ? 'selected' : '' }}>Belum Menerima</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-            </form>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
