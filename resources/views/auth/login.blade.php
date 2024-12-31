@@ -92,11 +92,11 @@
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit">Login</button>
-                <button type="button" onclick="window.location='{{ route('register') }}'">Register</button>
+                <button type="button" class="google-login" onclick="window.location='{{ route('google.login') }}'">
+                    Login dengan Google
+                </button>
             </form>
-            <button type="button" class="google-login" onclick="window.location='{{ route('google.login') }}'">
-                Login dengan Google
-            </button>
+            <p><a href="{{ route('register') }}">Belum punya akun? Daftar di sini</a></p>
         </div>
     </div>
 </body>

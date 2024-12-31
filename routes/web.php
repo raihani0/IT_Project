@@ -36,11 +36,6 @@ Route::get('/Home', function () {
     return view('Home');
 })->middleware('auth');
 
-// Route untuk Desa
-Route::get('/Desa', function () {
-    return view('Desa');
-});
-
 //Route untuk penduduk
 Route::resource('penduduk', PendudukController::class);
 Route::resource('desa', DesaController::class);
