@@ -42,7 +42,7 @@ class BantuanController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|min:5',
+            'title' => 'required|min:3',
             'description' => 'required|min:10',
             'status' => 'required|boolean',
         ]);
@@ -101,7 +101,7 @@ class BantuanController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|min:5',
+            'title' => 'required|min:3',
             'description' => 'required|min:10',
             'status' => 'required|boolean',
         ]);
