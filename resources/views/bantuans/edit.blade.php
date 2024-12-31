@@ -137,7 +137,7 @@
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans" class="active"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/Dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
