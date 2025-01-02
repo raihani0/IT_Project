@@ -57,7 +57,7 @@
         .sidebar a {
             display: block;
             color: white;
-            padding: 10px 15px;
+            padding: 7px 15px;
             text-decoration: none;
         }
 
@@ -71,17 +71,26 @@
             padding-left: 16px;
         }
 
-        .breadcrumb {
+        .content {
+            margin-left: 200px;
+            padding: 90px 30px 30px 30px;
+        }
+
+        .breadcrumb-custom {
             background-color: white;
-            padding: 9px 15px;
+            padding: 10px 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             font-size: 14px;
         }
 
-        .breadcrumb a {
-            color: #0d6efd;
+        .breadcrumb-custom a {
             text-decoration: none;
+            color: #0d6efd;
+        }
+
+        .breadcrumb-custom a:hover {
+            text-decoration: underline;
         }
 
         .page-title {
@@ -89,11 +98,6 @@
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
-        }
-
-        .content {
-            margin-left: 200px;
-            padding: 90px 30px 30px 30px;
         }
 
         .form-container {
@@ -153,6 +157,31 @@
         .dropdown-content a:hover {
             background-color: #575757;
         }
+
+        .table-container {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -167,13 +196,13 @@
 
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
-        <a href="/penduduk" class="active"> <i class="fas fa-users"></i> Penduduk</a>
+        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
             <div class="dropdown-content">
                 <a href="/kriteria">Kriteria</a>
                 <a href="/alternatif">Alternatif</a>
-                <a href="/hitung">Hitung</a>
+                <a href="/hitung" class="active">Hitung</a>
             </div>
         </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
@@ -205,77 +234,74 @@
     </div>
 
     <div class="content">
-        <div class="breadcrumb">
-            <a href="/penduduk">Penduduk</a>
-        </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-custom">
+                <li class="breadcrumb-item"><a href="/alternatif">Alternatif</a></li>
+            </ol>
+        </nav>
         <div class="page-title">
-            Tambah Data Penduduk
+            hitung
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0 shadow-sm rounded">
-                        <div class="card-body">
-                            <form action="{{ route('penduduk.store') }}" method="POST">
-                                @csrf
-                                <div class="form-section">
-                                    <label for="nama" class="form-label">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" required>
-                                </div>
-                                <div class="form-section">
-                                    <label for="nik" class="form-label">NIK</label>
-                                    <input type="text" class="form-control" id="nik" name="nik" required>
-                                </div>
-                                <div class="form-section">
-                                    <label for="desa_id" class="form-label">Desa</label>
-                                    <select class="form-control" id="desa_id" name="desa_id" required>
-                                        <option value="">Pilih Desa</option>
-                                        @foreach ($desa as $d)
-                                            <option value="{{ $d->id }}">{{ $d->nama_desa }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-section">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" required></textarea>
-                                </div>
-                                <div class="form-section">
-                                    <label for="jenis_bantuan" class="form-label">Jenis Bantuan</label>
-                                    <select class="form-control" id="jenis_bantuan" name="jenis_bantuan" required>
-                                        <option value="">Pilih Jenis Bantuan</option>
-                                        <option value="BLT">BLT</option>
-                                        <option value="BST">BST</option>
-                                        <option value="BSU">BSU</option>
-                                        <option value="BPNT">BPNT</option>
-                                        <option value="BPUM">BPUM</option>
-                                        <option value="PKH">PKH</option>
-                                        <option value="RTLH">RTLH</option>
-                                        <option value="Kartu Indonesia Sehat">Kartu Indonesia Sehat</option>
-                                        <option value="Kartu Indonesia Pintar">Kartu Indonesia Pintar</option>
-                                        <option value="Bantuan Pangan untuk Lansia dan Disabilitas">Bantuan Pangan untuk
-                                            Lansia dan Disabilitas</option>
-                                    </select>
-                                </div>
-                                <div class="form-section">
-                                    <label for="nominal" class="form-label">Nominal</label>
-                                    <input type="number" class="form-control" id="nominal" name="nominal" required>
-                                </div>
-                                <div class="form-section">
-                                    <label for="status_bantuan" class="form-label">Status Bantuan</label>
-                                    <select class="form-control" id="status_bantuan" name="status_bantuan" required>
-                                        <option value="Sudah Menerima">Sudah Menerima</option>
-                                        <option value="Belum Menerima">Belum Menerima</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
-                                    Simpan</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="table-container">
+            <h3>Bobot</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ $widget1['kriteria'] }}</th>
+                        <th>{{ $widget2['kriteria'] }}</th>
+                        <th>{{ $widget3['kriteria'] }}</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    </div>
+
+        <div class="table-container">
+            <h3>Normalisasi</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode Alternatif</th>
+                        <th>C1</th>
+                        <th>C2</th>
+                        <th>C3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $alternatif)
+                        <tr>
+                            <td>{{ $alternatif->kode_alternatif }}</td>
+                            <td>{{ $alternatif->kriteria_1 / $C1min['alternatif'] }}</td>
+                            <td>{{ $alternatif->kriteria_2 / $C2max['alternatif'] }}</td>
+                            <td>{{ $alternatif->kriteria_3 / $C3max['alternatif'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h3>Hasil</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode Alternatif</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $alternatif)
+                        <tr>
+                            <td>{{ $alternatif->kode_alternatif }}</td>
+                            <td>
+                                {{ (($alternatif->kriteria_1 / $C1max['alternatif']) * $widget1['kriteria']) +
+                                   (($alternatif->kriteria_2 / $C2max['alternatif']) * $widget2['kriteria']) +
+                                   (($alternatif->kriteria_3 / $C3max['alternatif']) * $widget3['kriteria']) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

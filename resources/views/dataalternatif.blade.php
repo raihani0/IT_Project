@@ -1,78 +1,68 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Bantuan</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>SIM PENDUDUK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: lightgray;
-            overflow-x: hidden;
+            background-color: #D3D3D3;
         }
 
-        /* Header Styling */
         .header {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
+            padding: 6px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
         }
 
-        .header h1 {
-            margin: 0;
+        .header .title {
             font-size: 24px;
             font-weight: bold;
         }
 
-        .user-info {
+        .header .user {
             display: flex;
             align-items: center;
-            gap: 10px;
+            font-size: 18px;
         }
 
-        .user-info i {
-            font-size: 16px;
-            color: white;
+        .header .user i {
+            margin-right: 10px;
         }
 
-        .user-info span {
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-        }
-
-        /* Sidebar Styling */
         .sidebar {
+            width: 200px;
             background-color: #31363F;
             color: white;
-            width: 200px;
             position: fixed;
             top: 50px;
-            left: 0;
             bottom: 0;
             padding-top: 20px;
-            overflow-y: auto;
+            font-size: 16px;
         }
 
         .sidebar a {
+            display: block;
+            color: white;
             padding: 7px 15px;
             text-decoration: none;
-            color: white;
-            display: block;
         }
 
-        .sidebar a:hover, .sidebar a.active {
+        .sidebar a:hover,
+        .sidebar a.active {
             background-color: #575757;
         }
 
@@ -81,28 +71,26 @@
             padding-left: 16px;
         }
 
-        /* Main Content Styling */
-        .container {
-            margin-left: 220px;
-            padding-top: 70px;
-            padding-bottom: 50px;
-            max-width: calc(100% - 240px);
+        .content {
+            margin-left: 200px;
+            padding: 90px 30px 30px 30px;
+            background: lightgray;
         }
 
-        .breadcrumb-custom {
+        .breadcrumb {
             background-color: white;
-            padding: 10px 15px;
+            padding: 9px 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             font-size: 14px;
         }
 
-        .breadcrumb-custom a {
-            text-decoration: none;
+        .breadcrumb a {
             color: #0d6efd;
+            text-decoration: none;
         }
 
-        .breadcrumb-custom a:hover {
+        .breadcrumb a:hover {
             text-decoration: underline;
         }
 
@@ -112,8 +100,20 @@
             text-align: center;
             margin-bottom: 20px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        .badge-status {
+            font-size: 14px;
+            padding: 5px 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -142,17 +142,16 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
     <div class="header">
-        <h1>SIM PENDUDUK</h1>
-        <div class="user-info">
+        <div class="title">SIM PENDUDUK</div>
+        <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+            <span>{{ Auth::user()->name }}</span>
         </div>
     </div>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
@@ -160,13 +159,13 @@
             <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
             <div class="dropdown-content">
                 <a href="/kriteria">Kriteria</a>
-                <a href="/alternatif">Alternatif</a>
+                <a href="/alternatif" class="active">Alternatif</a>
                 <a href="/hitung">Hitung</a>
             </div>
         </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
-        <a href="/bantuans" class="active"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
@@ -192,51 +191,49 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container mt-5">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+    <div class="content">
+        <div class="breadcrumb">
+            <a href="/kriteria">Kriteria</a>
         </div>
+        <div class="page-title">Data Kriteria</div>
 
-        <!-- Page Title -->
-        <div class="page-title">
-            Detail Bantuan
-        </div>
-
-        <!-- Bantuan Details -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <h3 class="mb-3">{{ $bantuan->title }}</h3>
-                        <hr/>
-                        <div class="mb-3">
-                            <strong>Status:</strong>
-                            <span class="badge bg-{{ $bantuan->status ? 'success' : 'danger' }}">
-                                {{ $bantuan->status ? 'Aktif' : 'Tidak Aktif' }}
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Deskripsi Bantuan:</strong>
-                            <p>{{ $bantuan->description }}</p>
-                        </div>
-                        <div class="mt-4">
-                            <a href="{{ route('bantuans.index') }}" class="btn btn-secondary">Kembali</a>
-                            <a href="{{ route('bantuans.edit', $bantuan->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('bantuans.destroy', $bantuan->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bantuan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="btn-container">
+                    <a href="{{ url('alternatif/add') }}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Alternatif</a>
                 </div>
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Kode Alternatif</th>
+                            <th>C1</th>
+                            <th>C2</th>
+                            <th>C3</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $i => $alternatif)
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $alternatif->kode_alternatif }}</td>
+                                <td>{{ $alternatif->kriteria_1 }}</td>
+                                <td>{{ $alternatif->kriteria_2 }}</td>
+                                <td>{{ $alternatif->kriteria_3 }}</td>
+                                <td>
+                                    <a href="{{ url('alternatif/edit/' . $alternatif->id) }}"
+                                        class="btn btn-primary btn-sm"><i class="fas fa-edit"></a>
+                                    <a href="{{ url('alternatif/delete/' . $alternatif->id) }}"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
