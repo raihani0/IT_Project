@@ -161,14 +161,15 @@
     </div>
 
     <div class="sidebar">
-        <a href="/Home">Dashboard</a>
-        <a href="/penduduk" class="active">Penduduk</a>
-        <a href="/desa">Desa</a>
-        <a href="/bantuans">Bantuan</a>
-        <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/histori">Histori</a>
+        <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
+        <a href="/penduduk" class="active"> <i class="fas fa-users"></i> Penduduk</a>
+        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
+        <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
+        <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Logout :</a>
+            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i> Logout :</a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout
@@ -195,8 +196,8 @@
             <div class="card-body">
                 <div class="container">
                     <div class="btn-container">
-                        <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success">Tambah Penduduk</a>
-                        <a href="{{ url('pdf_generator') }}" class="btn btn-primary">Download PDF</a>
+                        <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success"><i class="fas fa-plus"></i> Tambah Penduduk</a>
+                        <a href="{{ url('pdf_generator') }}" class="btn btn-primary"><i class="fas fa-print"></i> Download PDF</a>
                     </div>
 
                     @if(session('success'))
@@ -233,12 +234,19 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('penduduk.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                        <a href="{{ route('penduduk.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('penduduk.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        <a href="{{ route('penduduk.show', $item->id) }}" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ route('penduduk.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('penduduk.destroy', $item->id) }}" method="POST"
+                                            class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin Hapus?')">Hapus</button>
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin Hapus?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>

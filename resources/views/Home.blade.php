@@ -202,15 +202,15 @@
 
     </div>
     <div class="sidebar">
-        <a href="/Home" class="active">Dashboard</a>
-        <a href="/penduduk">Penduduk</a>
-        <a href="/desa">Desa</a>
-        <a href="/bantuans">Bantuan</a>
-        <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/histori">Histori</a>
+        <a href="/Home" class="active"> <i class="fas fa-home"></i> Dashboard</a>
+        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
+        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
+        <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Logout :</a>
+            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i>  Logout :</a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
@@ -242,7 +242,7 @@
                 <div class="info">
                     <div class="title">Desa</div>
                     <div class="number">14</div>
-                    <a href="/Desa" class="detail-link">Lihat Detail ></a>
+                    <a href="/desa" class="detail-link">Lihat Detail ></a>
                 </div>
             </div>
             <div class="card blue">
@@ -251,7 +251,7 @@
                     <div class="title">Warga</div>
                     <div class="number">200</div>
                 </div>
-                <a href="/penduduks" class="detail-link">Lihat Detail ></a>
+                <a href="/penduduk" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card green">
                 <i class="fas fa-hand-holding-usd"></i>
@@ -267,7 +267,7 @@
                     <div class="title">Status Penerima</div>
                     <div class="number">55</div>
                 </div>
-                <a href="/Histori" class="detail-link">Lihat Detail ></a>
+                <a href="/histori" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card green">
                  <i class="fab fa-whatsapp"></i>

@@ -8,6 +8,8 @@ use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FonnteController;
 use App\Http\Controllers\WhatsAppController;
+use App\Http\Controllers\DokumentasiController;
+
 
 // Route untuk halaman awal
 Route::get('/', function () {
@@ -37,11 +39,6 @@ Route::get('/Home', function () {
     return view('Home');
 })->middleware('auth');
 
-// Route untuk Desa
-Route::get('/Desa', function () {
-    return view('Desa');
-});
-
 //Route untuk penduduk
 Route::resource('penduduk', PendudukController::class);
 Route::get('pdf_generator', [PendudukController::class, 'pdf_generator_get']);
@@ -49,6 +46,8 @@ Route::get('pdf_generator', [PendudukController::class, 'pdf_generator_get']);
 Route::resource('desa', DesaController::class);
 
 // Route untuk Dokumentasi
+// Menampilkan daftar dokumentasi
+Route::resource('dokumentasi', DokumentasiController::class);
 Route::get('/Dokumentasi', function () {
     return view('Dokumentasi');
 });
