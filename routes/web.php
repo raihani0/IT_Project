@@ -88,3 +88,11 @@ Route::get('/send-message', [FonnteController::class, 'showForm']);
 
 // Rute untuk memproses pengiriman pesan
 Route::post('/send-message', [FonnteController::class, 'sendMessage']);
+
+use App\Http\Controllers\ProfileController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::middleware('auth')->get('/profile/view', [ProfileController::class, 'view'])->name('profile.view');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
