@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +54,8 @@
             display: block;
         }
 
-        .sidebar a:hover, .sidebar a.active {
+        .sidebar a:hover,
+        .sidebar a.active {
             background-color: #575757;
         }
 
@@ -92,8 +94,9 @@
             text-align: center;
             margin-bottom: 20px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        /* Dropdown Styles */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -122,6 +125,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -144,32 +148,41 @@
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
+            <div class="dropdown-content">
+                <a href="/kriteria">Kriteria</a>
+                <a href="/alternatif">Alternatif</a>
+                <a href="/hitung">Hitung</a>
+            </div>
+        </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans" class="active"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i> Logout :</a>
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-sign-out-alt"></i> Logout :
+            </a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout dengan Google?')) { 
+                        document.getElementById('logout-google-form').submit(); }"> Logout Google
+                </a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout?')) { 
+                        document.getElementById('logout-form').submit(); }"> Logout
+                </a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
             </div>
         </div>
 
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
 
     <!-- Main Content -->
@@ -195,7 +208,8 @@
                             <!-- Judul -->
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">NAMA BANTUAN</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Masukkan Nama Bantuan">
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    name="title" value="{{ old('title') }}" placeholder="Masukkan Nama Bantuan">
                                 @error('title')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -206,7 +220,9 @@
                             <!-- Deskripsi -->
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">DESKRIPSI BANTUAN</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Bantuan">{{ old('description') }}</textarea>
+                                <textarea class="form-control @error('description') is-invalid @enderror"
+                                    name="description" rows="5"
+                                    placeholder="Masukkan Deskripsi Bantuan">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -226,7 +242,7 @@
                             <!-- Tombol Submit -->
                             <button type="submit" class="btn btn-md btn-primary me-3">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning">Reset</button>
-                        </form> 
+                        </form>
                     </div>
                 </div>
             </div>

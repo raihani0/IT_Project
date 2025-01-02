@@ -5,6 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BantuanController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\HitungController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FonnteController;
 use App\Http\Controllers\WhatsAppController;
@@ -42,6 +45,26 @@ Route::get('/Home', function () {
 //Route untuk penduduk
 Route::resource('penduduk', PendudukController::class);
 Route::get('pdf_generator', [PendudukController::class, 'pdf_generator_get']);
+
+Route::controller(KriteriaController::class)->group(function() {
+    Route::get('kriteria/', 'index');
+    Route::get('kriteria/add', 'add');
+    Route::post('kriteria/store', 'store');
+    Route::get('kriteria/edit/{id}', 'edit');
+    Route::post('kriteria/update/{id}', 'update');
+    Route::get('kriteria/delete/{id}', 'delete');
+});
+
+Route::controller(AlternatifController::class)->group(function() {
+    Route::get('alternatif/', 'index');
+    Route::get('alternatif/add', 'add');
+    Route::post('alternatif/store', 'store');
+    Route::get('alternatif/edit/{id}', 'edit');
+    Route::post('alternatif/update/{id}', 'update');
+    Route::get('alternatif/delete/{id}', 'delete');
+});
+
+Route::get('/hitung', [HitungController::class, 'hitung'])->name('hitung');
 
 Route::resource('desa', DesaController::class);
 

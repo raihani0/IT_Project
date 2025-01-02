@@ -155,35 +155,42 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="/Home">Dashboard</a>
-        <a href="/penduduk">Penduduk</a>
-        <a href="/desa">Desa</a>
-        <a href="/bantuans">Bantuan</a>
-        <a href="/Dokumentasi">Dokumentasi</a>
-        <a href="/histori">Histori</a>
-        <a href="/profile" class="active">Profil</a>
+        <a href="/Home" class="active"> <i class="fas fa-home"></i> Dashboard</a>
+        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
+            <div class="dropdown-content">
+                <a href="/kriteria">Kriteria</a>
+                <a href="/alternatif">Alternatif</a>
+                <a href="/hitung">Hitung</a>
+            </div>
+        </div>
+        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
+        <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
+        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Logout :</a>
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-sign-out-alt"></i> Logout :
+            </a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout dari Google?')) { 
+                        document.getElementById('logout-google-form').submit(); }"> Logout Google
+                </a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout?')) { 
+                        document.getElementById('logout-form').submit(); }"> Logout
+                </a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
 
     <!-- Main Content -->

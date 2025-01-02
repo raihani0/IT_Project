@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIM PENDUDUK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
             margin: 0;
@@ -17,7 +17,7 @@
         .header {
             background-color: #4CAF50;
             color: white;
-            padding: 7px 20px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -100,6 +100,35 @@
             margin-bottom: 20px;
         }
 
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .form-container label {
+            font-weight: normal;
+        }
+
+        .form-container .form-control {
+            margin-bottom: 15px;
+        }
+
+        .form-container button {
+            width: 100%;
+        }
+
+        .form-section {
+            margin-bottom: 15px;
+        }
+
+        .form-section .row {
+            margin-bottom: 10px;
+        }
+
         /* Dropdown Styles */
         .dropdown {
             position: relative;
@@ -129,38 +158,29 @@
             background-color: #575757;
         }
 
-        .container h2 {
+        .table-container {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: center;
-            font-size: 22px;
-            margin-bottom: 30px;
+        }
+
+        table th {
+            background-color: #f2f2f2;
             font-weight: bold;
-        }
-
-        .form-label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #4CAF50;
-            border-color: #4CAF50;
-        }
-
-        .btn-primary:hover {
-            background-color: #45a049;
-            border-color: #45a049;
-        }
-
-        .alert {
-            margin-top: 20px;
-        }
-
-        /* Kotak Formulir */
-        .form-container {
-            background-color: #fff; /* Warna latar */
-            border: 1px solid #ccc; /* Garis tepi */
-            border-radius: 8px; /* Lengkung sudut */
-            padding: 20px; /* Ruang dalam kotak */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan */
         }
     </style>
 </head>
@@ -173,15 +193,16 @@
             <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
         </div>
     </div>
+
     <div class="sidebar">
-    <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
+        <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
             <div class="dropdown-content">
                 <a href="/kriteria">Kriteria</a>
                 <a href="/alternatif">Alternatif</a>
-                <a href="/hitung">Hitung</a>
+                <a href="/hitung" class="active">Hitung</a>
             </div>
         </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
@@ -211,50 +232,77 @@
             </div>
         </div>
     </div>
+
     <div class="content">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-custom">
-            <a href="/home">Kirim Pesan</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-custom">
+                <li class="breadcrumb-item"><a href="/alternatif">Alternatif</a></li>
+            </ol>
+        </nav>
+        <div class="page-title">
+            hitung
         </div>
-        <div class="container">
-            <h2>Kirim Pesan Kepada Admin</h2>
+        <div class="table-container">
+            <h3>Bobot</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ $widget1['kriteria'] }}</th>
+                        <th>{{ $widget2['kriteria'] }}</th>
+                        <th>{{ $widget3['kriteria'] }}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
 
-            <!-- Menampilkan pesan sukses atau error -->
-            @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
+        <div class="table-container">
+            <h3>Normalisasi</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode Alternatif</th>
+                        <th>C1</th>
+                        <th>C2</th>
+                        <th>C3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $alternatif)
+                        <tr>
+                            <td>{{ $alternatif->kode_alternatif }}</td>
+                            <td>{{ $alternatif->kriteria_1 / $C1min['alternatif'] }}</td>
+                            <td>{{ $alternatif->kriteria_2 / $C2max['alternatif'] }}</td>
+                            <td>{{ $alternatif->kriteria_3 / $C3max['alternatif'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-            @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
-            <!-- Kotak Formulir -->
-            <div class="form-container">
-                <form action="{{ url('/send-message') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Pesan</label>
-                        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tulis pesan Anda di sini..." required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="file" class="form-label">URL File (Opsional)</label>
-                        <input type="url" class="form-control" id="file" name="file" placeholder="Masukkan URL file (jika ada)">
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Kirim Pesan</button>
-                    </div>
-                </form>
-            </div>
+        <div class="table-container">
+            <h3>Hasil</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode Alternatif</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $alternatif)
+                        <tr>
+                            <td>{{ $alternatif->kode_alternatif }}</td>
+                            <td>
+                                {{ (($alternatif->kriteria_1 / $C1max['alternatif']) * $widget1['kriteria']) +
+                                   (($alternatif->kriteria_2 / $C2max['alternatif']) * $widget2['kriteria']) +
+                                   (($alternatif->kriteria_3 / $C3max['alternatif']) * $widget3['kriteria']) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
