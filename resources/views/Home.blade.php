@@ -204,32 +204,40 @@
     <div class="sidebar">
         <a href="/Home" class="active"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
+            <div class="dropdown-content">
+                <a href="/kriteria">Kriteria</a>
+                <a href="/alternatif">Alternatif</a>
+                <a href="/hitung">Hitung</a>
+            </div>
+        </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i>  Logout :</a>
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-sign-out-alt"></i> Logout :
+            </a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout dari Google?')) { 
+                        document.getElementById('logout-google-form').submit(); }"> Logout Google
+                </a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout?')) { 
+                        document.getElementById('logout-form').submit(); }"> Logout
+                </a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
     <div class="content">
         <div class="breadcrumb">
@@ -262,15 +270,15 @@
                 <a href="/bantuans" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card blue">
-                <i class="fas fa-clipboard-check"></i>
+                <i class="fas fa-camera"></i>
                 <div class="info">
-                    <div class="title">Status Penerima</div>
-                    <div class="number">55</div>
+                    <div class="title">Dokumentasi</div>
+                    <div class="number">14</div>
                 </div>
-                <a href="/histori" class="detail-link">Lihat Detail ></a>
+                <a href="/dokumentasi" class="detail-link">Lihat Detail ></a>
             </div>
             <div class="card green">
-                 <i class="fab fa-whatsapp"></i>
+                <i class="fab fa-whatsapp"></i>
                 <div class="info">
                     <div class="title">Whatsapp</div>
                 </div>

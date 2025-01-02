@@ -146,34 +146,26 @@
 <body>
     <div class="header">
         <div class="title">SIM PENDUDUK</div>
-        <div class="user" style="position: relative;">
-            <a href="#" onclick="toggleDropdown()" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                <i class="fas fa-user-circle" style="margin-right: 5px;"></i>
-                <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
-            </a>
-
-            <!-- Dropdown Menu -->
-            <div id="dropdown-menu" style="display: none; position: absolute; top: 30px; right: 0; background-color: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 150px; z-index: 1000;">
-                <a href="{{ route('profile.edit') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Edit Profil</a>
-                <a href="{{ route('profile.view') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Lihat Profil</a>
-            </div>
+        <div class="user">
+            <i class="fas fa-user-circle"></i>
+            <span>{{ Auth::user()->name }}</span>
         </div>
     </div>
 
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
-        <a href="/penduduk" class="active"> <i class="fas fa-users"></i> Penduduk</a>
+        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
             <div class="dropdown-content">
-                <a href="/kriteria">Kriteria</a>
+                <a href="/kriteria" class="active">Kriteria</a>
                 <a href="/alternatif">Alternatif</a>
                 <a href="/hitung">Hitung</a>
             </div>
         </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
+        <a href="/dokumentasi"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
@@ -201,91 +193,47 @@
 
     <div class="content">
         <div class="breadcrumb">
-            <a href="/penduduk">Penduduk</a>
+            <a href="/kriteria">Kriteria</a>
         </div>
-        <div class="page-title">Data Penduduk</div>
+        <div class="page-title">Data Kriteria</div>
 
         <div class="card">
             <div class="card-body">
-                <div class="container">
-                    <div class="btn-container">
-                        <a href="{{ route('penduduk.create') }}" class="btn btn-md btn-success"><i class="fas fa-plus"></i> Tambah Penduduk</a>
-                        <a href="{{ url('pdf_generator') }}" class="btn btn-primary"><i class="fas fa-print"></i> Download PDF</a>
-                    </div>
-
-                    @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>NIK</th>
-                                <th>Desa</th>
-                                <th>Alamat</th>
-                                <th>Jenis Bantuan</th>
-                                <th>Nominal</th>
-                                <th>Status Bantuan</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($penduduk as $item)
-                                <tr>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->nik }}</td>
-                                    <td>{{ $item->desa->nama_desa }}</td>
-                                    <td>{{ $item->alamat }}</td>
-                                    <td>{{ $item->jenis_bantuan }}</td>
-                                    <td>{{ number_format($item->nominal, 2) }}</td>
-                                    <td>
-                                        @if($item->status_bantuan == 'Sudah Menerima')
-                                            <span class="badge bg-success badge-status">{{ $item->status_bantuan }}</span>
-                                        @else
-                                            <span class="badge bg-danger badge-status">{{ $item->status_bantuan }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('penduduk.show', $item->id) }}" class="btn btn-info btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('penduduk.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('penduduk.destroy', $item->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin Hapus?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="btn-container">
+                    <a href="{{ url('kriteria/add') }}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Kriteria</a>
                 </div>
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Kode Kriteria</th>
+                            <th>Kriteria</th>
+                            <th>Nilai Bobot</th>
+                            <th>Jenis Kriteria</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $i => $kriteria)
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $kriteria->kode_kriteria }}</td>
+                                <td>{{ $kriteria->nama_kriteria }}</td>
+                                <td>{{ $kriteria->bobot }}</td>
+                                <td>{{ $kriteria->jenis }}</td>
+                                <td>
+                                    <a href="{{ url('kriteria/edit/' . $kriteria->id) }}"
+                                        class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ url('kriteria/delete/' . $kriteria->id) }}"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </body>
-<script>
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdown-menu');
-        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
-    }
-
-    // Tutup dropdown jika pengguna mengklik di luar dropdown
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdown-menu');
-        const user = document.querySelector('.user');
-
-        if (!user.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    });
-</script>
 
 </html>

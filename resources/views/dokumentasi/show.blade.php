@@ -91,6 +91,34 @@
             padding: 12px 16px;
         }
 
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #31363F;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
         .content {
             margin-left: 200px;
             padding: 90px 30px 30px 30px;
@@ -184,18 +212,34 @@
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
+            <div class="dropdown-content">
+                <a href="/kriteria">Kriteria</a>
+                <a href="/alternatif">Alternatif</a>
+                <a href="/hitung">Hitung</a>
+            </div>
+        </div>
         <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
         <a href="/bantuans"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
         <a href="/dokumentasi" class="active"> <i class="fas fa-camera"></i> Dokumentasi</a>
         <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i> Logout :</a>
+            <a href="#" class="dropdown-toggle">
+                <i class="fas fa-sign-out-alt"></i> Logout :
+            </a>
             <div class="dropdown-content">
-                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
+                <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout dengan Google?')) { 
+                        document.getElementById('logout-google-form').submit(); }"> Logout Google
+                </a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
                     @csrf
                 </form>
-                <a href="/login" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="/login" onclick="event.preventDefault(); 
+                    if(confirm('Apakah Anda yakin ingin logout?')) { 
+                        document.getElementById('logout-form').submit(); }"> Logout
+                </a>
                 <form id="logout-form" method="POST" action="/logout" style="display:none;">
                     @csrf
                 </form>

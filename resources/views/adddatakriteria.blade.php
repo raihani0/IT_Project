@@ -1,88 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Profil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>SIM PENDUDUK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: lightgray;
-            overflow-x: hidden;
+            background-color: #D3D3D3;
         }
 
         .header {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
         }
 
-        .header h1 {
-            margin: 0;
+        .header .title {
             font-size: 24px;
             font-weight: bold;
         }
 
+        .header .user {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .header .user i {
+            margin-right: 10px;
+        }
+
         .sidebar {
+            width: 200px;
             background-color: #31363F;
             color: white;
-            width: 200px;
             position: fixed;
             top: 50px;
-            left: 0;
             bottom: 0;
             padding-top: 20px;
-            overflow-y: auto;
+            font-size: 16px;
         }
 
         .sidebar a {
-            padding: 7px 15px;
-            text-decoration: none;
-            color: white;
             display: block;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
         }
 
-        .sidebar a:hover, .sidebar a.active{
+        .sidebar a:hover,
+        .sidebar a.active {
             background-color: #575757;
         }
+
         .sidebar a.active {
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
         }
 
-        .container {
-            margin-left: 220px;
-            padding-top: 70px;
-            padding-bottom: 50px;
-            max-width: calc(100% - 240px);
-        }
-
-        .breadcrumb-custom {
+        .breadcrumb {
             background-color: white;
-            padding: 10px 15px;
+            padding: 9px 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             font-size: 14px;
         }
 
-        .breadcrumb-custom a {
-            text-decoration: none;
+        .breadcrumb a {
             color: #0d6efd;
-        }
-
-        .breadcrumb-custom a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         .page-title {
@@ -92,6 +91,41 @@
             margin-bottom: 20px;
         }
 
+        .content {
+            margin-left: 200px;
+            padding: 90px 30px 30px 30px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .form-container label {
+            font-weight: normal;
+        }
+
+        .form-container .form-control {
+            margin-bottom: 15px;
+        }
+
+        .form-container button {
+            width: 100%;
+        }
+
+        .form-section {
+            margin-bottom: 15px;
+        }
+
+        .form-section .row {
+            margin-bottom: 10px;
+        }
+
+        /* Dropdown Styles */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -121,24 +155,23 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
     <div class="header">
-        <h1>SIM PENDUDUK</h1>
-        <div class="user-info">
+        <div class="title">SIM PENDUDUK</div>
+        <div class="user">
             <i class="fas fa-user-circle"></i>
-            <span>{{ Auth::user()->name }}</span>
+            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
         </div>
     </div>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
             <div class="dropdown-content">
-                <a href="/kriteria">Kriteria</a>
+                <a href="/kriteria" class="active">Kriteria</a>
                 <a href="/alternatif">Alternatif</a>
                 <a href="/hitung">Hitung</a>
             </div>
@@ -154,7 +187,7 @@
             </a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); 
-                    if(confirm('Apakah Anda yakin ingin logout dari Google?')) { 
+                    if(confirm('Apakah Anda yakin ingin logout dengan Google?')) { 
                         document.getElementById('logout-google-form').submit(); }"> Logout Google
                 </a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
@@ -171,67 +204,37 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-custom">
-            <a href="/profile">Profil</a>
+    <div class="content">
+        <div class="breadcrumb">
+            <a href="/kriteria">Kriteria</a>
         </div>
-
-        <!-- Page Title -->
         <div class="page-title">
-            Edit Profil
+            Tambah Data Kriteria
         </div>
-
-        <!-- Form Edit Profil -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        @if(session('status'))
-                            <p class="text-success">{{ session('status') }}</p>
-                        @endif
-
-                        <form action="{{ route('profile.update') }}" method="POST">
-                            @csrf
-                            @method('PUT')
-
-                            <div class="form-group mb-3">
-                                <label for="name">Nama</label>
-                                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
-                                @error('name')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
-                                @error('email')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="password">Password Baru (Opsional)</label>
-                                <input type="password" id="password" name="password" class="form-control">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="password_confirmation">Konfirmasi Password</label>
-                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
-                            </div>
-
-                            <button type="submit" class="btn btn-md btn-primary me-3">Simpan Perubahan</button>
-                            <button type="reset" class="btn btn-md btn-warning">Reset</button>
-                        </form>
-                    </div>
+        <div class="form-container">
+            <form method="POST" action="{{ url('/kriteria/store') }}">
+                @csrf
+                <div class="form-section">
+                    <label for="kode_kriteria">Kode</label>
+                    <input type="text" class="form-control" name="kode_kriteria" placeholder="Kode Kriteria">
                 </div>
-            </div>
+                <div class="form-section">
+                    <label for="nama_kriteria">Kriteria</label>
+                    <input type="text" class="form-control" name="nama_kriteria" placeholder="Kriteria">
+                </div>
+                <div class="form-section">
+                    <label for="bobot">Nilai Bobot</label>
+                    <input type="text" class="form-control" name="bobot" placeholder="Nilai Bobot">
+                </div>
+                <div class="form-section">
+                    <label for="jenis">Jenis Kriteria</label>
+                    <input type="text" class="form-control" name="jenis" placeholder="Jenis Kriteria">
+                </div>
+                <button type="submit" class="btn btn-success">Create</button>
+            </form>
         </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 </body>
+
 </html>
