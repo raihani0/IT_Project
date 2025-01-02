@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Bantuan</title>
+    <title>Profil Pengguna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -112,8 +112,9 @@
             text-align: center;
             margin-bottom: 20px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        /* Dropdown Styles */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -146,31 +147,24 @@
     <!-- Header -->
     <div class="header">
         <h1>SIM PENDUDUK</h1>
-        <div class="user" style="position: relative;">
-            <a href="#" onclick="toggleDropdown()" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                <i class="fas fa-user-circle" style="margin-right: 5px;"></i>
-                <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
-            </a>
-
-            <!-- Dropdown Menu -->
-            <div id="dropdown-menu" style="display: none; position: absolute; top: 30px; right: 0; background-color: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 150px; z-index: 1000;">
-                <a href="{{ route('profile.edit') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Edit Profil</a>
-                <a href="{{ route('profile.view') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Lihat Profil</a>
-            </div>
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
-        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
-        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
-        <a href="/bantuans" class="active"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
-        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
+        <a href="/Home">Dashboard</a>
+        <a href="/penduduk">Penduduk</a>
+        <a href="/desa">Desa</a>
+        <a href="/bantuans">Bantuan</a>
+        <a href="/Dokumentasi">Dokumentasi</a>
+        <a href="/histori">Histori</a>
+        <a href="/profile" class="active">Profil</a>
         <!-- Dropdown for Logout -->
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i> Logout :</a>
+            <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
@@ -196,39 +190,24 @@
     <div class="container mt-5">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="/profile">Profil</a>
         </div>
 
         <!-- Page Title -->
         <div class="page-title">
-            Detail Bantuan
+            Profil Pengguna
         </div>
 
-        <!-- Bantuan Details -->
+        <!-- Profil Details -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <h3 class="mb-3">{{ $bantuan->title }}</h3>
-                        <hr/>
-                        <div class="mb-3">
-                            <strong>Status:</strong>
-                            <span class="badge bg-{{ $bantuan->status ? 'success' : 'danger' }}">
-                                {{ $bantuan->status ? 'Aktif' : 'Tidak Aktif' }}
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Deskripsi Bantuan:</strong>
-                            <p>{{ $bantuan->description }}</p>
-                        </div>
+                        <p><strong>Nama:</strong> {{ $user->name }}</p>
+                        <p><strong>Email:</strong> {{ $user->email }}</p>
+                        <p><strong>Tanggal Bergabung:</strong> {{ $user->created_at->format('d M Y') }}</p>
                         <div class="mt-4">
-                            <a href="{{ route('bantuans.index') }}" class="btn btn-secondary">Kembali</a>
-                            <a href="{{ route('bantuans.edit', $bantuan->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('bantuans.destroy', $bantuan->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bantuan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
+                            <a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profil</a>
                         </div>
                     </div>
                 </div>
@@ -239,21 +218,4 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script>
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdown-menu');
-        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
-    }
-
-    // Tutup dropdown jika pengguna mengklik di luar dropdown
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdown-menu');
-        const user = document.querySelector('.user');
-
-        if (!user.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    });
-</script>
-
 </html>

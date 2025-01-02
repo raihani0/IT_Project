@@ -187,10 +187,19 @@
 <body>
     <div class="header">
         <div class="title">SIM PENDUDUK</div>
-        <div class="user">
-            <i class="fas fa-user-circle"></i>
-            <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+        <div class="user" style="position: relative;">
+            <a href="#" onclick="toggleDropdown()" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <i class="fas fa-user-circle" style="margin-right: 5px;"></i>
+                <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+            </a>
+
+            <!-- Dropdown Menu -->
+            <div id="dropdown-menu" style="display: none; position: absolute; top: 30px; right: 0; background-color: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 150px; z-index: 1000;">
+                <a href="{{ route('profile.edit') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Edit Profil</a>
+                <a href="{{ route('profile.view') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Lihat Profil</a>
+            </div>
         </div>
+
     </div>
     <div class="sidebar">
         <a href="/Home" class="active"> <i class="fas fa-home"></i> Dashboard</a>
@@ -270,5 +279,22 @@
         </div>
     </div>
 </body>
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdown-menu');
+        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+    }
+
+    // Tutup dropdown jika pengguna mengklik di luar dropdown
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdown-menu');
+        const user = document.querySelector('.user');
+
+        if (!user.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>
+
 
 </html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Bantuan</title>
+    <title>Edit Profil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -91,8 +91,8 @@
             text-align: center;
             margin-bottom: 20px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -125,31 +125,22 @@
     <!-- Header -->
     <div class="header">
         <h1>SIM PENDUDUK</h1>
-        <div class="user" style="position: relative;">
-            <a href="#" onclick="toggleDropdown()" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                <i class="fas fa-user-circle" style="margin-right: 5px;"></i>
-                <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
-            </a>
-
-            <!-- Dropdown Menu -->
-            <div id="dropdown-menu" style="display: none; position: absolute; top: 30px; right: 0; background-color: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 150px; z-index: 1000;">
-                <a href="{{ route('profile.edit') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Edit Profil</a>
-                <a href="{{ route('profile.view') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Lihat Profil</a>
-            </div>
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>{{ Auth::user()->name }}</span>
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
-        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
-        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
-        <a href="/bantuans" class="active"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
-        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
-        <!-- Dropdown for Logout -->
+        <a href="/Home">Dashboard</a>
+        <a href="/penduduk">Penduduk</a>
+        <a href="/desa">Desa</a>
+        <a href="/bantuans">Bantuan</a>
+        <a href="/Dokumentasi">Dokumentasi</a>
+        <a href="/histori">Histori</a>
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle"> <i class="fas fa-sign-out-alt"></i> Logout :</a>
+            <a href="#" class="dropdown-toggle">Logout :</a>
             <div class="dropdown-content">
                 <a href="{{ route('logout.google') }}" onclick="event.preventDefault(); document.getElementById('logout-google-form').submit();">Logout Google</a>
                 <form id="logout-google-form" method="GET" action="{{ route('logout.google') }}" style="display:none;">
@@ -161,72 +152,62 @@
                 </form>
             </div>
         </div>
-
-        <script>
-            function confirmLogout() {
-                if (confirm("Apakah Anda yakin ingin logout?")) {
-                    document.getElementById('logout-form').submit();
-                }
-            }
-        </script>
     </div>
 
     <!-- Main Content -->
-    <div class="container mt-5 mb-5">
+    <div class="container">
         <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
-            <a href="/bantuans">Bantuan</a>
+            <a href="/profile">Profil</a>
         </div>
 
         <!-- Page Title -->
         <div class="page-title">
-            Edit Bantuan
+            Edit Profil
         </div>
 
-        <!-- Form -->
+        <!-- Form Edit Profil -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('bantuans.update', $bantuan->id) }}" method="POST">
+                        @if(session('status'))
+                            <p class="text-success">{{ session('status') }}</p>
+                        @endif
+
+                        <form action="{{ route('profile.update') }}" method="POST">
                             @csrf
                             @method('PUT')
 
-                            <!-- Judul -->
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">NAMA BANTUAN</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $bantuan->title) }}" placeholder="Masukkan Judul Bantuan">
-                                @error('title')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                <label for="name">Nama</label>
+                                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                                @error('name')
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
 
-                            <!-- Deskripsi -->
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">DESKRIPSI BANTUAN</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Bantuan">{{ old('description', $bantuan->description) }}</textarea>
-                                @error('description')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+                                @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
 
-                            <!-- Status -->
                             <div class="form-group mb-3">
-                                <label for="status">STATUS</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="1" {{ old('status', $bantuan->status ?? '') == 1 ? 'selected' : '' }}>Aktif</option>
-                                    <option value="0" {{ old('status', $bantuan->status ?? '') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                                </select>
+                                <label for="password">Password Baru (Opsional)</label>
+                                <input type="password" id="password" name="password" class="form-control">
                             </div>
 
-                            <!-- Tombol Submit -->
-                            <button type="submit" class="btn btn-md btn-primary me-3">UPDATE</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-                        </form> 
+                            <div class="form-group mb-3">
+                                <label for="password_confirmation">Konfirmasi Password</label>
+                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
+                            </div>
+
+                            <button type="submit" class="btn btn-md btn-primary me-3">Simpan Perubahan</button>
+                            <button type="reset" class="btn btn-md btn-warning">Reset</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -235,26 +216,5 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.25.0/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
 </body>
-<script>
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdown-menu');
-        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
-    }
-
-    // Tutup dropdown jika pengguna mengklik di luar dropdown
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdown-menu');
-        const user = document.querySelector('.user');
-
-        if (!user.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    });
-</script>
-
 </html>
