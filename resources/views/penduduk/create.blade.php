@@ -171,7 +171,7 @@
                 <a href="{{ route('profile.view') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Lihat Profil</a>
             </div>
         </div>
-
+    </div>
     <div class="sidebar">
         <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
         <a href="/penduduk" class="active"> <i class="fas fa-users"></i> Penduduk</a>
