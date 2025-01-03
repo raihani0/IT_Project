@@ -193,9 +193,9 @@
 
     <div class="content">
         <div class="breadcrumb">
-            <a href="/kriteria">Kriteria</a>
+            <a href="/alternatif">Alternatif</a>
         </div>
-        <div class="page-title">Data Kriteria</div>
+        <div class="page-title">Data Alternatif</div>
 
         <div class="card">
             <div class="card-body">
@@ -223,7 +223,7 @@
                                 <td>{{ $alternatif->kriteria_3 }}</td>
                                 <td>
                                     <a href="{{ url('alternatif/edit/' . $alternatif->id) }}"
-                                        class="btn btn-primary btn-sm"><i class="fas fa-edit"></a>
+                                        class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                                     <a href="{{ url('alternatif/delete/' . $alternatif->id) }}"
                                         class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                 </td>

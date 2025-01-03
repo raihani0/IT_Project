@@ -172,7 +172,8 @@
             margin-bottom: 20px;
         }
 
-        table th, table td {
+        table th,
+        table td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
@@ -236,43 +237,50 @@
     <div class="content">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-custom">
-                <li class="breadcrumb-item"><a href="/alternatif">Alternatif</a></li>
+                <li class="breadcrumb-item"><a href="/hitung">Hitung</a></li>
             </ol>
         </nav>
         <div class="page-title">
             hitung
         </div>
         <div class="table-container">
-            <h3>Bobot</h3>
-            <table>
+            <h4>Bobot Kriteria</h4>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>{{ $widget1['kriteria'] }}</th>
-                        <th>{{ $widget2['kriteria'] }}</th>
-                        <th>{{ $widget3['kriteria'] }}</th>
+                        <th>C1 (Cost)</th>
+                        <th>C2 (Benefit)</th>
+                        <th>C3 (Benefit)</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $widget1['kriteria'] }}</td>
+                        <td>{{ $widget2['kriteria'] }}</td>
+                        <td>{{ $widget3['kriteria'] }}</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
         <div class="table-container">
-            <h3>Normalisasi</h3>
-            <table>
+            <h4>Normalisasi</h4>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Kode Alternatif</th>
-                        <th>C1</th>
-                        <th>C2</th>
-                        <th>C3</th>
+                        <th>C1 (Cost)</th>
+                        <th>C2 (Benefit)</th>
+                        <th>C3 (Benefit)</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $alternatif)
                         <tr>
                             <td>{{ $alternatif->kode_alternatif }}</td>
-                            <td>{{ $alternatif->kriteria_1 / $C1min['alternatif'] }}</td>
-                            <td>{{ $alternatif->kriteria_2 / $C2max['alternatif'] }}</td>
-                            <td>{{ $alternatif->kriteria_3 / $C3max['alternatif'] }}</td>
+                            <td>{{ number_format($C1min / $alternatif->kriteria_1, 4) }}</td> <!-- Normalisasi C1 -->
+                            <td>{{ number_format($alternatif->kriteria_2 / $C2max, 4) }}</td> <!-- Normalisasi C2 -->
+                            <td>{{ number_format($alternatif->kriteria_3 / $C3max, 4) }}</td> <!-- Normalisasi C3 -->
                         </tr>
                     @endforeach
                 </tbody>
@@ -280,8 +288,8 @@
         </div>
 
         <div class="table-container">
-            <h3>Hasil</h3>
-            <table>
+            <h4>Hasil Akhir</h4>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Kode Alternatif</th>
@@ -290,18 +298,60 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $alternatif)
+                                        <tr>
+                                            <td>{{ $alternatif->kode_alternatif }}</td>
+                                            <td>
+                                                {{ number_format(
+                            (($C1min / $alternatif->kriteria_1) * $widget1['kriteria']) +
+                            (($alternatif->kriteria_2 / $C2max) * $widget2['kriteria']) +
+                            (($alternatif->kriteria_3 / $C3max) * $widget3['kriteria']),
+                            4
+                        ) }}
+                                            </td>
+                                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h4>Hasil Akhir (Diurutkan)</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Kode Alternatif</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        // Buat koleksi hasil perhitungan
+                        $sortedResults = collect($data)->map(function ($alternatif) use ($C1min, $C2max, $C3max, $widget1, $widget2, $widget3) {
+                            $nilaiAkhir =
+                                (($C1min / $alternatif->kriteria_1) * $widget1['kriteria']) + // C1: Cost
+                                (($alternatif->kriteria_2 / $C2max) * $widget2['kriteria']) + // C2: Benefit
+                                (($alternatif->kriteria_3 / $C3max) * $widget3['kriteria']);  // C3: Benefit
+
+                            return [
+                                'kode_alternatif' => $alternatif->kode_alternatif,
+                                'hasil' => $nilaiAkhir,
+                            ];
+                        })->sortByDesc('hasil'); // Urutkan secara descending
+                        $ranking = 1;
+                    @endphp
+
+                    @foreach ($sortedResults as $result)
                         <tr>
-                            <td>{{ $alternatif->kode_alternatif }}</td>
-                            <td>
-                                {{ (($alternatif->kriteria_1 / $C1max['alternatif']) * $widget1['kriteria']) +
-                                   (($alternatif->kriteria_2 / $C2max['alternatif']) * $widget2['kriteria']) +
-                                   (($alternatif->kriteria_3 / $C3max['alternatif']) * $widget3['kriteria']) }}
-                            </td>
+                            <td>{{ $ranking++ }}</td>
+                            <td>{{ $result['kode_alternatif'] }}</td>
+                            <td>{{ number_format($result['hasil'], 4) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+
     </div>
 </body>
 
