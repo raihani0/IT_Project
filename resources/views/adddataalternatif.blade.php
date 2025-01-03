@@ -220,15 +220,15 @@
                 </div>
                 <div class="form-section">
                     <label for="kriteria_1">C1</label>
-                    <input type="text" class="form-control" name="kriteria_1" placeholder="Nilai Kriteria (Penghasilan)" required>
+                    <input type="text" class="form-control" name="kriteria_1" placeholder="(Penghasilan)" required>
                 </div>
                 <div class="form-section">
                     <label for="kriteria_2">C2</label>
-                    <input type="text" class="form-control" name="kriteria_2" placeholder="Nilai Kriteria (Status Perkawinan)" required>
+                    <input type="text" class="form-control" name="kriteria_2" placeholder="(Status Perkawinan) kawin = 1, belum kawin = 2, cerai hidup = 3, cerai mati = 4 " required>
                 </div>
                 <div class="form-section">
                     <label for="kriteria_3">C3</label>
-                    <input type="text" class="form-control" name="kriteria_3" placeholder="Nilai Kriteria (Jumlah Tanggungan)" required>
+                    <input type="text" class="form-control" name="kriteria_3" placeholder="(Jumlah Tanggungan)" required>
                 </div>
                 <button type="submit" class="btn btn-success">Create</button>
             </form>

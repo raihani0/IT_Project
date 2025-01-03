@@ -53,9 +53,10 @@
             display: block;
         }
 
-        .sidebar a:hover, .sidebar a.active{
+        .sidebar a:hover, .sidebar a.active {
             background-color: #575757;
         }
+
         .sidebar a.active {
             border-left: 4px solid #4CAF50;
             padding-left: 16px;
@@ -91,8 +92,8 @@
             text-align: center;
             margin-bottom: 20px;
         }
-                        /* Dropdown Styles */
-                        .dropdown {
+
+        .dropdown {
             position: relative;
             display: inline-block;
         }
@@ -119,30 +120,46 @@
         .dropdown-content a:hover {
             background-color: #575757;
         }
+
+        #dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            z-index: 1000;
+        }
+
+        #dropdown-menu.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <div class="header">
         <h1>SIM PENDUDUK</h1>
-        <div class="user" style="position: relative;">
-            <a href="#" onclick="toggleDropdown()" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <div class="user">
+            <a href="#" onclick="toggleDropdown()" aria-label="User Menu" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
                 <i class="fas fa-user-circle" style="margin-right: 5px;"></i>
-                <span>{{ Auth::user()->name }}</span> <!-- Menampilkan nama user yang sedang login -->
+                <span>{{ Auth::user()->name }}</span>
             </a>
-
             <!-- Dropdown Menu -->
-            <div id="dropdown-menu" style="display: none; position: absolute; top: 30px; right: 0; background-color: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 150px; z-index: 1000;">
-                <a href="{{ route('profile.edit') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Edit Profil</a>
-                <a href="{{ route('profile.view') }}" style="display: block; padding: 10px; text-decoration: none; color: #333; font-size: 14px;">Lihat Profil</a>
+            <div id="dropdown-menu">
+                <a href="{{ route('profile.edit') }}" class="dropdown-item">Edit Profil</a>
+                <a href="{{ route('profile.view') }}" class="dropdown-item">Lihat Profil</a>
             </div>
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="/Home"> <i class="fas fa-home"></i> Dashboard</a>
-        <a href="/penduduk"> <i class="fas fa-users"></i> Penduduk</a>
+        <a href="/Home"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="/penduduk"><i class="fas fa-users"></i> Penduduk</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle"><i class="fas fa-calculator"></i> SAW :</a>
             <div class="dropdown-content">
@@ -151,12 +168,10 @@
                 <a href="/hitung">Hitung</a>
             </div>
         </div>
-        <a href="/desa"> <i class="fas fa-map-marker-alt"></i> Desa</a>
-        <a href="/bantuans" class="active"> <i class="fas fa-hand-holding-usd"></i> Bantuan</a>
-        <a href="/dokumentasi"> <i class="fas fa-camera"></i>  Dokumentasi</a>
-        <a href="/histori"> <i class="fas fa-history"></i> Histori</a>
-        <!-- Dropdown for Logout -->
-        <div class="dropdown">
+        <a href="/desa"><i class="fas fa-map-marker-alt"></i> Desa</a>
+        <a href="/bantuans" class="active"><i class="fas fa-hand-holding-usd"></i> Bantuan</a>
+        <a href="/dokumentasi"><i class="fas fa-camera"></i> Dokumentasi</a>
+        <a href="/histori"><i class="fas fa-history"></i> Histori</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle">
                 <i class="fas fa-sign-out-alt"></i> Logout :
@@ -182,17 +197,12 @@
 
     <!-- Main Content -->
     <div class="container mt-5 mb-5">
-        <!-- Breadcrumb -->
         <div class="breadcrumb-custom">
             <a href="/bantuans">Bantuan</a>
         </div>
 
-        <!-- Page Title -->
-        <div class="page-title">
-            Edit Bantuan
-        </div>
+        <div class="page-title">Edit Bantuan</div>
 
-        <!-- Form -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
@@ -201,29 +211,22 @@
                             @csrf
                             @method('PUT')
 
-                            <!-- Judul -->
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">NAMA BANTUAN</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $bantuan->title) }}" placeholder="Masukkan Judul Bantuan">
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $bantuan->title) }}" placeholder="Masukkan Judul Bantuan" required>
                                 @error('title')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- Deskripsi -->
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">DESKRIPSI BANTUAN</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Bantuan">{{ old('description', $bantuan->description) }}</textarea>
+                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Deskripsi Bantuan" required>{{ old('description', $bantuan->description) }}</textarea>
                                 @error('description')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- Status -->
                             <div class="form-group mb-3">
                                 <label for="status">STATUS</label>
                                 <select name="status" id="status" class="form-control">
@@ -232,7 +235,6 @@
                                 </select>
                             </div>
 
-                            <!-- Tombol Submit -->
                             <button type="submit" class="btn btn-md btn-primary me-3">UPDATE</button>
                             <button type="reset" class="btn btn-md btn-warning">RESET</button>
                         </form> 
@@ -246,24 +248,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.25.0/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('description');
+        document.addEventListener('DOMContentLoaded', () => {
+            CKEDITOR.replace('description');
+        });
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.classList.toggle('show');
+        }
+
+        document.addEventListener('click', (event) => {
+            const dropdown = document.getElementById('dropdown-menu');
+            const user = document.querySelector('.user');
+            if (!user.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
     </script>
 </body>
-<script>
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdown-menu');
-        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
-    }
-
-    // Tutup dropdown jika pengguna mengklik di luar dropdown
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdown-menu');
-        const user = document.querySelector('.user');
-
-        if (!user.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    });
-</script>
-
 </html>
